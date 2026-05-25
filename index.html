@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CMG Manual — Dashboard Gerdau</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0F3363;--navy2:#1A4A80;--navy3:#EEF3FA;
+  --gold:#F5C200;--gold2:#FFF8D6;--gold3:#B8940A;
+  --white:#fff;--bg:#F2F5FB;--bg2:#E8EFFE;
+  --card:#fff;--border:#D0DCF0;--border2:#B8CCEC;
+  --gray1:#374151;--gray2:#6B7280;--gray3:#9CA3AF;--gray4:#E5E9F0;--gray5:#F7F9FC;
+  --green:#166534;--green2:#DCFCE7;--green3:#15803D;
+  --red:#991B1B;--red2:#FEE2E2;--red3:#DC2626;
+  --orange:#92400E;--orange2:#FEF3C7;--orange3:#D97706;
+  --purple:#5B21B6;--purple2:#EDE9FE;
+  --shadow:0 1px 3px rgba(15,51,99,.10),0 0 0 1px rgba(15,51,99,.05);
+  --shadow2:0 4px 16px rgba(15,51,99,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--gray1);font-family:'Barlow',sans-serif;font-size:13px}
+
+/* ── HEADER ── */
+header{background:var(--navy);padding:0 28px;display:flex;align-items:stretch;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(15,51,99,.3)}
+.h-left{display:flex;align-items:center;gap:18px;padding:10px 0}
+.logo-box{background:#fff;border-radius:4px;padding:6px 14px;display:flex;align-items:center;border:1px solid #E5E9F0}
+.logo-box img{height:24px;width:auto}
+.h-vl{width:1px;height:30px;background:rgba(255,255,255,.2)}
+.h-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:#fff}
+.h-title .hl{color:var(--gold)}
+.h-sub{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+.h-right{display:flex;align-items:stretch}
+.h-info{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;padding:0 20px;border-left:1px solid rgba(255,255,255,.1)}
+.h-info .il{font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.7px}
+.h-info .iv{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:#FF9999}
+.h-info .is{font-size:9px;color:rgba(255,255,255,.4)}
+.h-date{background:var(--navy2);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px;border-left:1px solid rgba(255,255,255,.12)}
+.h-date .dl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.45)}
+.h-date .dv{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:900;color:#fff;line-height:1.1}
+.h-date .ds{font-size:9px;color:rgba(255,255,255,.4);margin-top:1px}
+.pdf-btn{display:flex;align-items:center;gap:6px;background:var(--gold);color:#000;font-size:11px;font-weight:800;border:none;cursor:pointer;padding:0 18px;font-family:inherit;transition:background .15s;letter-spacing:.3px;flex-shrink:0}
+.pdf-btn:hover{background:var(--gold2)}
+.pdf-btn svg{width:14px;height:14px;flex-shrink:0}
+
+/* ── FILTER BAR ── */
+.fbar{background:var(--white);border-bottom:2px solid var(--border);padding:8px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:58px;z-index:200;box-shadow:0 2px 6px rgba(15,51,99,.06)}
+.fl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--navy);flex-shrink:0}
+.fgrp{display:flex;gap:4px;flex-wrap:wrap}
+.fbtn{background:var(--bg);border:1px solid var(--border2);border-radius:3px;padding:3px 10px;font-size:11px;font-weight:600;color:var(--gray2);cursor:pointer;font-family:inherit;transition:all .15s}
+.fbtn:hover{background:var(--navy3);border-color:var(--navy);color:var(--navy)}
+.fbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.fbtn.active.gld{background:var(--gold);color:#000;border-color:var(--gold3)}
+.fsep{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.clr-btn{margin-left:auto;background:transparent;border:1px solid transparent;border-radius:3px;padding:3px 8px;font-size:10px;color:var(--gray3);cursor:pointer;font-family:inherit;transition:all .15s}
+.clr-btn:hover{color:var(--red3);border-color:var(--red3)}
+
+/* ── RESP PROFILE ── */
+#rpStrip{display:none;background:var(--navy3);border-bottom:2px solid var(--navy2);padding:6px 28px;position:sticky;top:97px;z-index:199}
+.rp-row{display:flex;align-items:center;gap:14px}
+.rp-av{width:34px;height:34px;border-radius:3px;background:var(--navy);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rp-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--navy)}
+.rp-sub{font-size:9px;color:var(--navy2);margin-top:1px}
+.rp-stats{display:flex;gap:0;margin-left:auto}
+.rp-stat{text-align:center;padding:0 14px;border-right:1px solid var(--border)}
+.rp-stat:last-child{border-right:none}
+.rp-sv{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900}
+.rp-sl{font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:var(--gray2);margin-top:1px}
+.rp-close{background:transparent;border:1px solid var(--navy);color:var(--navy);border-radius:3px;padding:3px 10px;font-size:10px;cursor:pointer;font-family:inherit;font-weight:700;margin-left:14px;flex-shrink:0;transition:all .15s}
+.rp-close:hover{background:var(--navy);color:#fff}
+
+/* ── LAYOUT ── */
+.dash{padding:14px 28px 32px;display:flex;flex-direction:column;gap:14px}
+.section-head{display:flex;align-items:center;gap:8px;margin-bottom:-6px}
+.sh-bar{width:4px;height:22px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.sh-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.3px}
+.sh-sub{font-size:9px;color:var(--gray3);text-transform:uppercase;letter-spacing:.7px;margin-left:auto}
+
+/* ── CARD ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;box-shadow:var(--shadow)}
+.card-h{background:var(--navy);padding:9px 16px;display:flex;align-items:center;justify-content:space-between}
+.ct{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:#fff;letter-spacing:.2px}
+.cs{font-size:8px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.7px;margin-top:1px}
+.cb{padding:12px 16px}
+
+/* ── KPIs ── */
+.kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 14px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.kpi-bot{position:absolute;bottom:0;left:0;right:0;height:3px}
+.kpi-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--gray3);margin-bottom:4px}
+.kpi-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;line-height:1;margin-bottom:2px}
+.kpi-sub{font-size:9px;color:var(--gray3)}
+.kpi-bar{height:3px;background:var(--gray4);border-radius:0;margin-top:8px;overflow:hidden}
+.kpi-fill{height:100%;border-radius:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* ── GRID LAYOUTS ── */
+.g2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
+.col{display:flex;flex-direction:column;gap:14px}
+
+/* ── PHASE CARDS ── */
+.fases-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:11px 14px}
+.fase{border-radius:5px;border:1px solid var(--border);padding:10px 12px;cursor:pointer;transition:all .15s;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.fase:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+.fase-top-bar{height:4px;margin:-10px -12px 8px;width:calc(100% + 24px);position:relative;top:-10px;left:-12px}
+.fl-l{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:3px}
+.fn{font-size:10px;font-weight:600;color:var(--gray1);margin-bottom:1px;line-height:1.3}
+.fd2{font-size:8px;color:var(--gray3);margin-bottom:5px}
+.fp{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;line-height:1;margin-bottom:4px}
+.f-pbar{height:4px;background:var(--gray4);border-radius:2px;overflow:hidden;margin-top:4px}
+.f-pfill{height:100%;border-radius:2px;transition:width 1s}
+.fase-ghost{position:absolute;right:5px;bottom:3px;font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;opacity:.05;pointer-events:none}
+
+/* ── PILL ── */
+.pill{display:inline-block;padding:2px 8px;border-radius:2px;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.pc{background:var(--green2);color:var(--green)}
+.pa{background:var(--orange2);color:var(--orange)}
+.pn{background:var(--gray4);color:var(--gray3);border:1px solid var(--gray4)}
+.pm{background:var(--gold2);color:var(--gold3)}
+.pr{background:var(--red2);color:var(--red)}
+.pv{background:var(--purple2);color:var(--purple)}
+
+/* ── CHAPTER TRACKER ── */
+.cap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:11px 14px}
+.cap{border-radius:4px;border:1px solid var(--border);padding:9px 11px;background:var(--white);box-shadow:var(--shadow);transition:transform .15s}
+.cap:hover{transform:translateY(-1px);box-shadow:var(--shadow2)}
+.cap.hl{border-color:var(--navy);background:var(--navy3)}
+.cap-num{font-size:8px;color:var(--gray3);font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px}
+.cap-name{font-size:10px;font-weight:700;color:var(--navy);margin-bottom:2px;line-height:1.3}
+.cap-resp{font-size:8px;color:var(--gray3);margin-bottom:5px}
+.cap-steps{display:flex;gap:3px;margin-bottom:4px}
+.step{flex:1;height:5px;border-radius:1px}
+
+/* ── RESP TABLE ── */
+.rt{width:100%;border-collapse:collapse;font-size:11px}
+.rt th{background:var(--navy);color:rgba(255,255,255,.8);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:7px 10px;text-align:left;border-bottom:2px solid var(--gold)}
+.rt td{padding:6px 10px;border-bottom:1px solid var(--gray4);color:var(--gray1)}
+.rt tr{cursor:pointer;transition:background .1s}
+.rt tr:hover td{background:var(--navy3)}
+.rt tr.act td{background:var(--navy3)}
+.rbar-bg{background:var(--gray4);border-radius:2px;height:6px;overflow:hidden;min-width:70px}
+.rbar-fill{height:100%;border-radius:2px;transition:width 1s}
+
+/* ── DONUT ── */
+.donut-wrap{display:flex;align-items:center;gap:18px;padding:12px 16px}
+.dl-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.dl-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.dl-name{font-size:11px;color:var(--gray1);flex:1}
+.dl-val{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800}
+.dl-tot{font-size:9px;color:var(--gray3)}
+
+/* ── GANTT ── */
+.gwrap{overflow-x:auto;overflow-y:auto;max-height:370px}
+.gt{border-collapse:collapse;width:100%;min-width:800px;font-size:10.5px}
+.gt thead th{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.7);padding:6px 7px;text-align:left;position:sticky;top:0;background:var(--navy);border-bottom:2px solid var(--gold);white-space:nowrap;z-index:10}
+.gt thead th.wk{text-align:center;padding:6px 2px;width:22px;font-size:7px}
+.gt tbody tr{border-bottom:1px solid var(--gray4);transition:background .1s}
+.gt tbody tr:hover td{background:var(--navy3)}
+.gt tbody td{padding:3px 7px;color:var(--gray1);white-space:nowrap;vertical-align:middle}
+.gt tbody td.wk{padding:3px 2px;width:22px;height:22px;position:relative}
+.lv1 td:first-child{color:var(--navy)!important;font-weight:800!important;font-size:11px!important}
+.lv2 td:first-child{color:var(--navy2)!important;font-weight:700!important}
+.lv3 td:first-child{padding-left:14px!important;color:var(--gray2)!important}
+.mrc td:first-child{color:var(--gold3)!important;font-weight:700!important}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:12px;align-items:center}
+.ld{display:flex;align-items:center;gap:4px;font-size:9px;color:rgba(255,255,255,.6)}
+.ls{width:14px;height:3px;border-radius:1px;display:inline-block}
+
+/* ── MARCO ── */
+.marcos-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.mc{border-radius:4px;border:1px solid var(--border);padding:10px;background:var(--card)}
+.mc.done-m{border-color:var(--green3);background:var(--green2)}
+.mc.wip-m{border-color:var(--gold3);background:var(--gold2)}
+.mc.late-m{border-color:var(--red3);background:var(--red2)}
+
+/* ── ANALYSIS ── */
+.ap-head{background:var(--navy);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.ap-badge{background:var(--gold);color:#000;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:3px 9px;border-radius:2px;margin-left:auto}
+.ap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
+.ap-card{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:11px 12px}
+.ap-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.ap-ico{font-size:16px}
+.ap-t{font-size:11px;font-weight:700;color:var(--navy)}
+.ap-tx{font-size:10px;color:var(--gray2);line-height:1.55;margin-bottom:6px}
+.ap-tag{display:inline-block;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:2px}
+.conc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 14px}
+.conc{background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--navy);border-radius:4px;padding:11px 14px;display:flex;gap:12px}
+.cn{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;color:var(--gold3);flex-shrink:0;line-height:1;width:28px}
+.ct2{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.ctx{font-size:10px;color:var(--gray2);line-height:1.5}
+.conc-label{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--navy);padding:10px 16px 8px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:2px;background:var(--bg2)}
+
+/* ── SCROLL ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--gray4)}
+::-webkit-scrollbar-thumb{background:var(--navy2);border-radius:2px}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:3px solid var(--gold);padding:10px 28px;display:flex;align-items:center;justify-content:space-between}
+footer img{height:20px;filter:brightness(10)}
+.ft{font-size:9px;color:rgba(255,255,255,.45);text-align:center}
+.fr{font-size:9px;color:var(--gold);font-weight:700;letter-spacing:.5px;text-align:right}
+
+/* ── PRINT ── */
+@media print{
+  .fbar,#rpStrip,header .pdf-btn{display:none!important}
+  header{position:relative}
+  .gwrap{max-height:none;overflow:visible}
+  body{background:#fff}
+  .card,.kpi,.fase,.cap{box-shadow:none;border-color:#ccc}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="h-left">
+    <div class="logo-box"><img src="data:image/png;base64,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" alt="Gerdau" style="height:24px;width:auto"><img src="data:image/png;base64,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" alt="Gerdau"></div>
+    <div class="h-vl"></div>
+    <div>
+      <div class="h-title">Manual de Operação do <span class="hl">CMG</span> — Dashboard de Projeto</div>
+      <div class="h-sub">Alvarez &amp; Marsal · Geotecnia · Rev.03 · Confidencial</div>
+    </div>
+  </div>
+  <div class="h-right">
+    <div class="h-info">
+      <div class="il">Prazo final</div>
+      <div class="iv">31/07/2026</div>
+      <div class="is">80 dias restantes</div>
+    </div>
+    <div class="h-date">
+      <div class="dl">Data de referência</div>
+      <div class="dv">12/05/2026</div>
+      <div class="ds">Semana 10 de 21</div>
+    </div>
+    <button class="pdf-btn" onclick="exportPDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 21H17a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/><path d="M14 3v5a1 1 0 001 1h5"/></svg>
+      Exportar PDF
+    </button>
+  </div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="fbar">
+  <span class="fl">Fase</span>
+  <div class="fgrp">
+    <button class="fbtn active" onclick="sf('fase','Todas',this)">Todas</button>
+    <button class="fbtn" onclick="sf('fase','A',this)">A · Preliminares</button>
+    <button class="fbtn" onclick="sf('fase','B',this)">B · Módulos</button>
+    <button class="fbtn" onclick="sf('fase','C',this)">C · Capítulos</button>
+    <button class="fbtn" onclick="sf('fase','D',this)">D · Greendocs</button>
+    <button class="fbtn" onclick="sf('fase','E',this)">E · Treinamento</button>
+  </div>
+  <div class="fsep"></div>
+  <span class="fl">Status</span>
+  <div class="fgrp">
+    <button class="fbtn active" onclick="sf('status','Todos',this)">Todos</button>
+    <button class="fbtn" onclick="sf('status','Concluído',this)">Concluído</button>
+    <button class="fbtn" onclick="sf('status','Em andamento',this)">Em andamento</button>
+    <button class="fbtn" onclick="sf('status','Atrasado',this)">Atrasado</button>
+    <button class="fbtn" onclick="sf('status','Não iniciado',this)">Não iniciado</button>
+  </div>
+  <div class="fsep"></div>
+  <span class="fl">Responsável</span>
+  <div class="fgrp">
+    <button class="fbtn fr active" onclick="sf('resp','Todos',this)">Todos</button>
+    <button class="fbtn fr" onclick="sf('resp','Piter Cristian',this)">Piter</button>
+    <button class="fbtn fr" onclick="sf('resp','Vitor Leonel',this)">Vitor</button>
+    <button class="fbtn fr" onclick="sf('resp','Valter Lourenço',this)">Valter</button>
+    <button class="fbtn fr" onclick="sf('resp','Regino Ferreiro',this)">Regino</button>
+    <button class="fbtn fr" onclick="sf('resp','Bruno Duarte',this)">Bruno</button>
+    <button class="fbtn fr" onclick="sf('resp','Euler Dias',this)">Euler</button>
+    <button class="fbtn fr" onclick="sf('resp','Luciana Machado',this)">Luciana</button>
+    <button class="fbtn fr" onclick="sf('resp','Pedro Dias',this)">Pedro</button>
+    <button class="fbtn fr" onclick="sf('resp','A&M / GERDAU',this)">A&amp;M</button>
+  </div>
+  <button class="clr-btn" onclick="clearAll()">✕ Limpar</button>
+</div>
+
+<!-- RESP PROFILE STRIP -->
+<div id="rpStrip">
+  <div class="rp-row">
+    <div class="rp-av" id="rpAv">–</div>
+    <div><div class="rp-name" id="rpNm">–</div><div class="rp-sub" id="rpSb">–</div></div>
+    <div class="rp-stats">
+      <div class="rp-stat"><div class="rp-sv" id="rpD" style="color:var(--green3)">–</div><div class="rp-sl">Concluído</div></div>
+      <div class="rp-stat"><div class="rp-sv" id="rpW" style="color:var(--orange3)">–</div><div class="rp-sl">Andamento</div></div>
+      <div class="rp-stat"><div class="rp-sv" id="rpA" style="color:var(--red3)">–</div><div class="rp-sl">Atrasado</div></div>
+      <div class="rp-stat"><div class="rp-sv" id="rpN" style="color:var(--gray3)">–</div><div class="rp-sl">Não iniciado</div></div>
+      <div class="rp-stat"><div class="rp-sv" id="rpP" style="color:var(--navy)">–</div><div class="rp-sl">Conclusão</div></div>
+    </div>
+    <button class="rp-close" onclick="sf('resp','Todos',null)">✕</button>
+  </div>
+</div>
+
+<div class="dash">
+
+<!-- ═══ MID: VISÃO GERAL + DETALHAMENTOS ═══ -->
+<div class="section-head"><div class="sh-bar"></div><div class="sh-title">Visão Geral do Projeto</div><div class="sh-sub">KPIs · Fases · Capítulos · Responsáveis · Marcos</div></div>
+
+<!-- KPIs -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-bot" style="background:var(--navy)"></div>
+    <div class="kpi-lbl">Avanço Previsto</div>
+    <div class="kpi-val" style="color:var(--navy)">54.6%</div>
+    <div class="kpi-sub">Semana 10 de 21</div>
+    <div class="kpi-bar"><div class="kpi-fill" style="width:42.1%;background:var(--navy)"></div></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-bot" style="background:var(--green3)"></div>
+    <div class="kpi-lbl">Avanço Realizado</div>
+    <div class="kpi-val" style="color:var(--red3)">50.8%</div>
+    <div class="kpi-sub">⚠ -3.8pp vs previsto</div>
+    <div class="kpi-bar"><div class="kpi-fill" style="width:44.6%;background:var(--green3)"></div></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-bot" style="background:var(--green3)"></div>
+    <div class="kpi-lbl">Tarefas Concluídas</div>
+    <div class="kpi-val" style="color:var(--green3)">36</div>
+    <div class="kpi-sub">de 77 atividades folha</div>
+    <div class="kpi-bar"><div class="kpi-fill" style="width:39%;background:var(--green3)"></div></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-bot" style="background:var(--orange3)"></div>
+    <div class="kpi-lbl">Em Andamento</div>
+    <div class="kpi-val" style="color:var(--orange3)">10</div>
+    <div class="kpi-sub">atividades em execução</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-bot" style="background:var(--red3)"></div>
+    <div class="kpi-lbl">Atrasadas</div>
+    <div class="kpi-val" style="color:var(--red3)">13</div>
+    <div class="kpi-sub">requerem ação imediata</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-bot" style="background:var(--purple)"></div>
+    <div class="kpi-lbl">Em Validação</div>
+    <div class="kpi-val" style="color:var(--purple)">5</div>
+    <div class="kpi-sub">aguardando validação A&M</div>
+  </div>
+</div>
+
+<!-- ALERT ATRASADO -->
+<div style="background:var(--red2);border:1px solid var(--red3);border-left:4px solid var(--red3);border-radius:5px;padding:9px 15px;display:flex;gap:12px;align-items:center">
+  <div style="font-size:16px;flex-shrink:0">🚨</div>
+  <div>
+    <div style="font-size:11px;font-weight:700;color:var(--red)">13 atividades atrasadas · Fase C com gap de -7,5pp — atenção máxima</div>
+    <div style="font-size:10px;color:var(--red);margin-top:2px;opacity:.75">Regino (3) · Valter (2) · Vitor (2) · Piter (2) · Bruno, Euler, Luciana, Pedro (1 cada) · 4 caps aguardam validação A&M.</div>
+  </div>
+  <div style="margin-left:auto;flex-shrink:0"><span class="pill pr" style="font-size:9px;padding:4px 10px">Ação Urgente</span></div>
+</div>
+
+<!-- FASES + DONUT -->
+<div class="g21">
+  <div class="card">
+    <div class="card-h">
+      <div><div class="ct">Fases do Projeto</div><div class="cs">Previsto vs Realizado · Clique para filtrar</div></div>
+    </div>
+    <div class="fases-wrap">
+      <div class="fase" onclick="sf('fase','A',null)">
+        <div class="fase-top-bar" style="background:var(--green3)"></div>
+        <div class="fl-l" style="color:var(--green3)">Fase A</div>
+        <div class="fn">Preliminares</div>
+        <div class="fd2">09/03 – 27/03/2026</div>
+        <div class="fp" style="color:var(--green3)">100%</div>
+        <div class="f-pbar"><div class="f-pfill" style="width:100%;background:var(--green3)"></div></div>
+        <div style="margin-top:5px"><span class="pill pc">Concluída ✓</span></div>
+        <div class="fase-ghost" style="color:var(--green3)">A</div>
+      </div>
+      <div class="fase" onclick="sf('fase','B',null)">
+        <div class="fase-top-bar" style="background:var(--orange3)"></div>
+        <div class="fl-l" style="color:var(--orange3)">Fase B</div>
+        <div class="fn">Módulos Introdutórios</div>
+        <div class="fd2">02/04 – 19/06/2026</div>
+        <div class="fp" style="color:var(--orange3)">87,5%</div>
+        <div class="f-pbar"><div class="f-pfill" style="width:87.5%;background:var(--orange3)"></div></div>
+        <div style="margin-top:5px"><span class="pill pa">Em andamento</span></div>
+        <div style="font-size:8px;color:var(--green3);font-weight:700;margin-top:3px">1 pendência restante</div>
+        <div class="fase-ghost" style="color:var(--orange3)">B</div>
+      </div>
+      <div class="fase" onclick="sf('fase','C',null)">
+        <div class="fase-top-bar" style="background:var(--navy)"></div>
+        <div class="fl-l" style="color:var(--navy)">Fase C</div>
+        <div class="fn">20 Capítulos CMG</div>
+        <div class="fd2">30/03 – 19/06/2026</div>
+        <div class="fp" style="color:var(--navy)">51,7%</div>
+        <div class="f-pbar"><div class="f-pfill" style="width:51.7%;background:var(--navy)"></div></div>
+        <div style="margin-top:5px"><span class="pill pa">Em andamento</span></div>
+        <div style="font-size:8px;color:var(--red3);font-weight:700;margin-top:3px">71,7%p / 64,2%r (-7,5pp ⚠)</div>
+        <div class="fase-ghost" style="color:var(--navy)">C</div>
+      </div>
+      <div class="fase" onclick="sf('fase','D',null)" style="opacity:.65">
+        <div class="fase-top-bar" style="background:var(--gold3)"></div>
+        <div class="fl-l" style="color:var(--gold3)">Fase D</div>
+        <div class="fn">Greendocs</div>
+        <div class="fd2">22/06 – 30/06/2026</div>
+        <div class="fp" style="color:var(--gold3)">0%</div>
+        <div class="f-pbar"><div class="f-pfill" style="width:0%;background:var(--gold3)"></div></div>
+        <div style="margin-top:5px"><span class="pill pn">Não iniciado</span></div>
+        <div class="fase-ghost" style="color:var(--gold3)">D</div>
+      </div>
+      <div class="fase" onclick="sf('fase','E',null)" style="opacity:.65">
+        <div class="fase-top-bar" style="background:var(--gray3)"></div>
+        <div class="fl-l" style="color:var(--gray3)">Fase E</div>
+        <div class="fn">Treinamento CMG</div>
+        <div class="fd2">01/07 – 31/07/2026</div>
+        <div class="fp" style="color:var(--gray3)">0%</div>
+        <div class="f-pbar"><div class="f-pfill" style="width:0%;background:var(--gray3)"></div></div>
+        <div style="margin-top:5px"><span class="pill pn">Não iniciado</span></div>
+        <div class="fase-ghost" style="color:var(--gray3)">E</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-h"><div><div class="ct">Status das Atividades</div><div class="cs" id="dSub">Distribuição — 77 atividades folha</div></div></div>
+      <div class="donut-wrap">
+        <canvas id="donut" width="130" height="130" style="flex-shrink:0"></canvas>
+        <div style="flex:1">
+          <div class="dl-row"><div class="dl-dot" style="background:var(--green3)"></div><div class="dl-name">Concluído</div><span class="dl-val" style="color:var(--green3)">36</span><span class="dl-tot">&nbsp;/ 77</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:var(--orange3)"></div><div class="dl-name">Em andamento</div><span class="dl-val" style="color:var(--orange3)">10</span><span class="dl-tot">&nbsp;/ 77</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:var(--red3)"></div><div class="dl-name">Atrasado</div><span class="dl-val" style="color:var(--red3)">13</span><span class="dl-tot">&nbsp;/ 77</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:var(--gray4)"></div><div class="dl-name">Não iniciado</div><span class="dl-val" style="color:var(--gray3)">18</span><span class="dl-tot">&nbsp;/ 77</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="card-h"><div><div class="ct">Progresso por Responsável</div><div class="cs">Clique na linha para filtrar</div></div></div>
+      <div style="overflow-x:auto"><table class="rt" id="rt"></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER TRACKER -->
+<div class="card">
+  <div class="card-h">
+    <div><div class="ct">Tracker de Capítulos — 20 Sistemas CMG</div><div class="cs">Entendimento · Redação · Validação por capítulo</div></div>
+    <div class="legend">
+      <div class="ld"><span class="ls" style="background:var(--green3)"></span>Concluído</div>
+      <div class="ld"><span class="ls" style="background:var(--gold3)"></span>Validação</div>
+      <div class="ld"><span class="ls" style="background:var(--orange3)"></span>Andamento</div>
+      <div class="ld"><span class="ls" style="background:var(--red3)"></span>Atrasado</div>
+      <div class="ld"><span class="ls" style="background:var(--gray4)"></span>N/I</div>
+    </div>
+  </div>
+  <div class="cap-grid" id="capGrid"></div>
+</div>
+
+<!-- MARCOS -->
+<div class="card">
+  <div class="card-h"><div><div class="ct">Marcos do Projeto</div><div class="cs">Status atual — Data-base 12/05/2026</div></div></div>
+  <div class="cb">
+    <div class="marcos-grid">
+      <div class="mc done-m"><div style="font-size:16px;margin-bottom:4px">✅</div><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:2px">EAP aprovada</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">01/04/2026</div><span class="pill pc">Concluído</span></div>
+      <div class="mc wip-m"><div style="font-size:16px;margin-bottom:4px">📋</div><div style="font-size:10px;font-weight:700;color:var(--orange);margin-bottom:2px">Módulos introdutórios</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">19/06/2026</div><span class="pill pa">87,5% — 1 pendência</span></div>
+      <div class="mc wip-m"><div style="font-size:16px;margin-bottom:4px">📝</div><div style="font-size:10px;font-weight:700;color:var(--orange);margin-bottom:2px">100% capítulos validados</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">19/06/2026</div><span class="pill pa">Em andamento</span></div>
+      <div class="mc"><div style="font-size:16px;margin-bottom:4px">📄</div><div style="font-size:10px;font-weight:700;color:var(--gray1);margin-bottom:2px">Manual consolidado</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">26/06/2026</div><span class="pill pn">Não iniciado</span></div>
+      <div class="mc"><div style="font-size:16px;margin-bottom:4px">🌐</div><div style="font-size:10px;font-weight:700;color:var(--gray1);margin-bottom:2px">Publicado Greendocs</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">10/07/2026</div><span class="pill pn">Não iniciado</span></div>
+      <div class="mc"><div style="font-size:16px;margin-bottom:4px">🎓</div><div style="font-size:10px;font-weight:700;color:var(--gray1);margin-bottom:2px">100% turnos treinados</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">31/07/2026</div><span class="pill pn">Não iniciado</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LOW: CURVA S + GANTT ═══ -->
+<div class="section-head"><div class="sh-bar"></div><div class="sh-title">Visão Temporal</div><div class="sh-sub">Curva S &amp; Cronograma Gantt</div></div>
+
+<!-- S-CURVE -->
+<div class="card">
+  <div class="card-h">
+    <div><div class="ct">Curva S — Avanço do Projeto</div><div class="cs">% acumulado · Monotonicamente crescente · 09/Mar – 31/Jul/2026</div></div>
+    <div class="legend">
+      <div class="ld"><span class="ls" style="background:#4E7FCC"></span>Previsto</div>
+      <div class="ld"><span class="ls" style="background:#15803D"></span>Realizado</div>
+      <div class="ld"><span style="display:inline-block;width:14px;height:0;border-top:2px dashed #B8940A"></span>Projetado</div>
+      <div class="ld" style="color:#DC2626">▏Hoje 05/05</div>
+    </div>
+  </div>
+  <div class="cb" style="height:280px"><canvas id="sc"></canvas></div>
+</div>
+
+<!-- GANTT -->
+<div class="card">
+  <div class="card-h">
+    <div><div class="ct">Gantt — Cronograma do Projeto</div><div class="cs">Barras semanais · 09 Mar → 31 Jul 2026</div></div>
+    <div class="legend">
+      <div class="ld"><span class="ls" style="background:#15803D"></span>Concluído</div>
+      <div class="ld"><span class="ls" style="background:#D97706"></span>Em andamento</div>
+      <div class="ld"><span class="ls" style="background:#DC2626"></span>Atrasado</div>
+      <div class="ld"><span class="ls" style="background:#E5E9F0"></span>Planejado</div>
+      <div class="ld"><span style="display:inline-block;width:7px;height:7px;background:#B8940A;transform:rotate(45deg);border-radius:1px;border:1px solid #8B6914"></span>Marco</div>
+      <div class="fsep"></div>
+      <span style="font-size:9px;color:rgba(255,255,255,.6)">Hoje: <span style="color:#FF8080;font-weight:700">05/05</span></span>
+    </div>
+  </div>
+  <div class="gwrap"><table class="gt"><thead id="gh"></thead><tbody id="gb"></tbody></table></div>
+</div>
+
+<!-- ═══ END: ANÁLISES ═══ -->
+<div class="section-head"><div class="sh-bar"></div><div class="sh-title">Análises e Conclusões</div><div class="sh-sub">PMO · A&amp;M · Data-base 12/05/2026</div></div>
+
+<div class="card">
+  <div class="ap-head">
+    <span style="font-size:18px">📊</span>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#fff">Análises PMO — Projeto Manual CMG</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Baseado no Plano de Trabalho · Gerdau Geotecnia · A&M · v5.0</div>
+    </div>
+    <div class="ap-badge">Análise PMO</div>
+  </div>
+  <div class="ap-grid">
+    <div class="ap-card">
+      <div class="ap-top"><div class="ap-ico">📈</div><div class="ap-t">Projeto à Frente — +0,8pp</div></div>
+      <div class="ap-tx">Avanço realizado (44,6%) supera o previsto (43,8%) na Semana 10. A Fase C está 5pp acima do previsto interno (51,7% vs 46,7%). O ritmo de entrega se mantém positivo, mas o número de capítulos Atrasados dobrou — exige atenção imediata.</div>
+      <span class="ap-tag" style="background:var(--green2);color:var(--green)">+0,8pp à frente</span>
+    </div>
+    <div class="ap-card">
+      <div class="ap-top"><div class="ap-ico">🏆</div><div class="ap-t">Piter Cristian — Referência de Ritmo</div></div>
+      <div class="ap-tx">Piter lidera com 6/15 tarefas concluídas e 3 capítulos em validação simultânea (Troca de Turno, INA/PZ, PAE/PAEBM). PAE/PAEBM continua Atrasado na validação — bloqueio persiste há 2 semanas e precisa ser prioridade #1.</div>
+      <span class="ap-tag" style="background:var(--green2);color:var(--green)">67% done</span>
+    </div>
+    <div class="ap-card">
+      <div class="ap-top"><div class="ap-ico">📋</div><div class="ap-t">Fase B em 87,5% — 1 Módulo Pendente</div></div>
+      <div class="ap-tx">3 de 4 módulos concluídos (Objetivos ✓, Aplicação ✓, Equipe Técnica ✓). Apenas Referências Normativas em andamento. A&M deve fechar este item ainda em maio para não impactar a consolidação do manual prevista para junho.</div>
+      <span class="ap-tag" style="background:var(--orange2);color:var(--orange)">Monitorar — 1 pendência</span>
+    </div>
+    <div class="ap-card">
+      <div class="ap-top"><div class="ap-ico">⚡</div><div class="ap-t">7 Capítulos Atrasados — Risco Sistêmico</div></div>
+      <div class="ap-tx">Talos (Bruno), Reports/SMAC (Regino/Valter), Radares (Luciana), Prog. Veículos (Pedro), PAE/PAEBM (Piter), Software Geocode (Euler) — todos atrasados. Com Fase C encerrando em 19/06 (38 dias), o risco de cascata é real. Checkpoint urgente necessário.</div>
+      <span class="ap-tag" style="background:var(--red2);color:var(--red)">13 atrasos — crítico</span>
+    </div>
+    <div class="ap-card">
+      <div class="ap-top"><div class="ap-ico">📅</div><div class="ap-t">Agendas Interrompidas — Risco Operacional</div></div>
+      <div class="ap-tx">Com 7 capítulos atrasados e 9 em andamento, a gestão de validações simultâneas exige cadência semanal. Os atrasos acumulados de Piter, Vitor, Valter e Regino não foram capturados a tempo. Checkpoint toda segunda-feira é mandatório.</div>
+      <span class="ap-tag" style="background:var(--orange2);color:var(--orange)">Retomar urgente</span>
+    </div>
+    <div class="ap-card">
+      <div class="ap-top"><div class="ap-ico">✅</div><div class="ap-t">Atenção: SMAC e Reports Regredidos</div></div>
+      <div class="ap-tx">SMAC (Valter) e Reports Diários (Regino) — que figuravam como Concluídos na semana anterior — retornaram ao status Atrasado. Isso indica que a validação ainda não foi formalizada. Confirmar com a equipe Gerdau o critério de conclusão adotado.</div>
+      <span class="ap-tag" style="background:var(--red2);color:var(--red)">Verificar urgente</span>
+    </div>
+  </div>
+  <div class="conc-label">Conclusões e Recomendações de Ação</div>
+  <div class="conc-grid">
+    <div class="conc"><div class="cn">1</div><div><div class="ct2">Retomar agendamentos esta semana</div><div class="ctx">Checkpoint semanal toda segunda-feira com todos os técnicos. Reunião quinzenal com gerência Gerdau. Sem cadência de reuniões, a fase de validação simultânea com 4 redações abertas é ingerenciável.</div></div></div>
+    <div class="conc"><div class="cn">2</div><div><div class="ct2">Resolver as 7 validações/redações atrasadas</div><div class="ctx">PAE/PAEBM (Piter), Plataforma Ntopus (Vitor), Software Geocode (Euler), Talos (Bruno), Reports (Regino), Prog. Veículos (Pedro) e SMAC (Valter) — todos com validação ou redação Atrasada. Designar revisor e prazo para cada um até sexta-feira.</div></div></div>
+    <div class="conc"><div class="cn">3</div><div><div class="ct2">Fechar Referências Normativas (Fase B)</div><div class="ctx">Única pendência da Fase B. A&M deve concluir em maio. Não impede o progresso da Fase C, mas é necessário para a integridade do manual na consolidação final de junho.</div></div></div>
+    <div class="conc"><div class="cn">4</div><div><div class="ct2">Plano de aceleração — Luciana prioritária</div><div class="ctx">Luciana Machado tem 3 tarefas Atrasadas e 0 em andamento — situação mais crítica. Bruno (SHMS em andamento mas Talos atrasado) e Pedro (Arq. Elétrica em andamento mas Prog. Veículos atrasado) precisam de split de atenção urgente.</div></div></div>
+  </div>
+</div>
+
+</div><!-- /dash -->
+
+<footer>
+  <img src="data:image/png;base64,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" alt="Gerdau">
+  <div class="ft">Alvarez &amp; Marsal Infrastructure &amp; Capital Projects · Gerdau – Manual CMG · 12/05/2026 · Confidencial · v5.0</div>
+  <div class="fr">O FUTURO SE MOLDA<br><span style="font-size:8px;opacity:.5;font-weight:400">CMG 24/7</span></div>
+</footer>
+
+<script>
+const SC_DATA = [{"date": "2026-03-09", "label": "09/03", "plan": 0, "real": 0.0, "proj": null}, {"date": "2026-03-16", "label": "16/03", "plan": 2.6, "real": 5.1, "proj": null}, {"date": "2026-03-23", "label": "23/03", "plan": 3.9, "real": 10.2, "proj": null}, {"date": "2026-03-30", "label": "30/03", "plan": 5.2, "real": 15.2, "proj": null}, {"date": "2026-04-06", "label": "06/04", "plan": 18.2, "real": 20.3, "proj": null}, {"date": "2026-04-13", "label": "13/04", "plan": 19.5, "real": 25.4, "proj": null}, {"date": "2026-04-20", "label": "20/04", "plan": 24.7, "real": 30.5, "proj": null}, {"date": "2026-04-27", "label": "27/04", "plan": 29.9, "real": 35.6, "proj": null}, {"date": "2026-05-04", "label": "04/05", "plan": 35.1, "real": 40.6, "proj": null}, {"date": "2026-05-11", "label": "11/05", "plan": 44.2, "real": 45.7, "proj": null}, {"date": "2026-05-18", "label": "18/05", "plan": 55.8, "real": null, "proj": 55.8}, {"date": "2026-05-25", "label": "25/05", "plan": 62.3, "real": null, "proj": 62.3}, {"date": "2026-06-01", "label": "01/06", "plan": 64.9, "real": null, "proj": 64.9}, {"date": "2026-06-08", "label": "08/06", "plan": 66.2, "real": null, "proj": 66.2}, {"date": "2026-06-15", "label": "15/06", "plan": 72.7, "real": null, "proj": 72.7}, {"date": "2026-06-22", "label": "22/06", "plan": 88.3, "real": null, "proj": 88.3}, {"date": "2026-06-29", "label": "29/06", "plan": 89.6, "real": null, "proj": 89.6}, {"date": "2026-07-06", "label": "06/07", "plan": 92.2, "real": null, "proj": 92.2}, {"date": "2026-07-13", "label": "13/07", "plan": 93.5, "real": null, "proj": 93.5}, {"date": "2026-07-20", "label": "20/07", "plan": 94.8, "real": null, "proj": 94.8}, {"date": "2026-07-27", "label": "27/07", "plan": 94.8, "real": null, "proj": 94.8}];
+const GANTT = [{"nivel": "N\u00edvel 1", "eap": "1", "task": "Elabora\u00e7\u00e3o do Manual de Opera\u00e7\u00e3o do CMG", "fase": "Projeto", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-03-09", "e": "2026-07-31", "av_p": 0.5458, "av_r": 0.5083, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.1", "task": "Fase A \u2013 Atividades Preliminares", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-09", "e": "2026-03-27", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.1", "task": "Diagn\u00f3stico de Maturidade do CMG", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-09", "e": "2026-03-11", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.2", "task": "Elabora\u00e7\u00e3o da EAP do Manual CMG", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-11", "e": "2026-03-23", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.3", "task": "Distribui\u00e7\u00e3o dos respons\u00e1veis por cap\u00edtulo", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-11", "e": "2026-03-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.4", "task": "Defini\u00e7\u00e3o do Di\u00e1rio de Bordo", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-24", "e": "2026-03-27", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.2", "task": "Fase B \u2013 Elabora\u00e7\u00e3o dos M\u00f3dulos Introdut\u00f3rios", "fase": "B", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-04-02", "e": "2026-06-19", "av_p": 0.875, "av_r": 0.875, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.1", "task": "Elaborar m\u00f3dulo: Objetivos do Manual", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-02", "e": "2026-04-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.2", "task": "Elaborar m\u00f3dulo: Aplica\u00e7\u00e3o e Abrang\u00eancia", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-06", "e": "2026-04-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.3", "task": "Elaborar m\u00f3dulo: Refer\u00eancias Normativas", "fase": "B", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-04-08", "e": "2026-06-19", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.4", "task": "Elaborar m\u00f3dulo: Equipe T\u00e9cnica do CMG", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-10", "e": "2026-04-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.3", "task": "Fase C \u2013 Elabora\u00e7\u00e3o dos Cap\u00edtulos (Sistemas/Controles 1\u201320)", "fase": "C", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-03-30", "e": "2026-06-19", "av_p": 0.7167, "av_r": 0.6417, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.1", "task": "Entendimento inicial \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.1", "task": "Entendimento inicial \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-04-01", "e": "2026-04-20", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-04-22", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.1", "task": "Entendimento inicial \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-12", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Atrasado", "s": "2026-05-13", "e": "2026-05-15", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.1", "task": "Entendimento inicial \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.1", "task": "Entendimento inicial \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-04-30", "e": "2026-05-04", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Em andamento", "s": "2026-05-05", "e": "2026-05-26", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "N\u00e3o iniciado", "s": "2026-05-27", "e": "2026-05-29", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.1", "task": "Entendimento inicial \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-06-01", "e": "2026-06-02", "av_p": 0.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-06-03", "e": "2026-06-15", "av_p": 0.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Em andamento", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.1", "task": "Entendimento inicial \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.1", "task": "Entendimento inicial \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-22", "e": "2026-04-23", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-24", "e": "2026-05-08", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Atrasado", "s": "2026-05-11", "e": "2026-05-13", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.1", "task": "Entendimento inicial \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-04-27", "e": "2026-04-28", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-04-29", "e": "2026-05-18", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-05-19", "e": "2026-05-21", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.1", "task": "Entendimento inicial \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-05-14", "e": "2026-05-15", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-05-18", "e": "2026-06-15", "av_p": 0.5, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Em andamento", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.1", "task": "Entendimento inicial \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "Em andamento", "s": "2026-05-22", "e": "2026-05-25", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "N\u00e3o iniciado", "s": "2026-05-26", "e": "2026-06-12", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "N\u00e3o iniciado", "s": "2026-06-15", "e": "2026-06-17", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.1", "task": "Entendimento inicial \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.1", "task": "Entendimento inicial \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "Em andamento", "s": "2026-05-22", "e": "2026-05-25", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-05-26", "e": "2026-06-12", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-06-15", "e": "2026-06-17", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.1", "task": "Entendimento inicial \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-04-20", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Atrasado", "s": "2026-04-22", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.1", "task": "Entendimento inicial \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-04-15", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Atrasado", "s": "2026-04-16", "e": "2026-04-20", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.1", "task": "Entendimento inicial \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-27", "e": "2026-04-28", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-29", "e": "2026-05-18", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Atrasado", "s": "2026-05-19", "e": "2026-05-21", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.1", "task": "Entendimento inicial \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-05-18", "e": "2026-05-19", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "Em andamento", "s": "2026-05-20", "e": "2026-06-15", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "N\u00e3o iniciado", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.1", "task": "Entendimento inicial \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Atrasado", "s": "2026-04-01", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Atrasado", "s": "2026-04-27", "e": "2026-04-29", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.1", "task": "Entendimento inicial \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.1", "task": "Entendimento inicial \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.4", "task": "Fase D \u2013 Greendocs", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-22", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.1", "task": "Validar manual consolidado (revis\u00e3o final integrada)", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-22", "e": "2026-06-26", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.3", "task": "Cadastrar material no Greendocs Gerdau", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-27", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.4", "task": "Divulgar material para a Ger\u00eancia", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-30", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.5", "task": "Fase E \u2013 Treinamento da Equipe do CMG", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-01", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.1", "task": "Elaborar material do treinamento", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-01", "e": "2026-07-10", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.2", "task": "Elaborar cronograma dos treinamentos", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-13", "e": "2026-07-14", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.3", "task": "Treinamento \u2013 Turno A Dupla 1 ", "fase": "E", "resp": "Vitor Leonel / Valter Louren\u00e7o", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.4", "task": "Treinamento \u2013 Turno B Dupla 2", "fase": "E", "resp": "Bruno Duarte / Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.5", "task": "Treinamento \u2013 Turno C Dupla 3", "fase": "E", "resp": "Luciana Machado / Piter Cristian", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.6", "task": "Treinamento \u2013 Turno D Dupla 4", "fase": "E", "resp": "Euler Dias / Pedro Dias", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}];
+
+const CAPS = [
+  {n:'01',nm:'Talos (Sirenes)',      rp:'Bruno Duarte',   st:['done','done','val'], lbl:'Validação'},
+  {n:'02',nm:'Geoinspector',         rp:'Euler Dias',     st:['done','done','val'], lbl:'Validação'},
+  {n:'03',nm:'Plataforma Ntopus',    rp:'Vitor Leonel',   st:['done','done','late'],lbl:'Validação ⚠'},
+  {n:'04',nm:'PAE/PAEBM',            rp:'Piter Cristian', st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'05',nm:'Análise Vetorial',     rp:'Vitor Leonel',   st:['done','done','late'],lbl:'Validação ⚠'},
+  {n:'06',nm:'Radares',              rp:'Luciana Machado',st:['done','done','val'], lbl:'Validação'},
+  {n:'07',nm:'SMAC',                 rp:'Valter Lourenço',st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'08',nm:'Software Geocode',     rp:'Euler Dias',     st:['done','done','late'],lbl:'Validação ⚠'},
+  {n:'09',nm:'SHMS',                 rp:'Bruno Duarte',   st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'10',nm:'Reports Diários',      rp:'Regino Ferreiro',st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'11',nm:'Arq. de Rede',         rp:'Luciana Machado',st:['done','done','late'],lbl:'Validação ⚠'},
+  {n:'12',nm:'Prog. Veículos',       rp:'Pedro Dias',     st:['done','done','val'], lbl:'Validação'},
+  {n:'13',nm:'Ground Probe',         rp:'Valter Lourenço',st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'14',nm:'Câmeras CFTV',         rp:'Valter Lourenço',st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'15',nm:'Arq. Elétrica',        rp:'Pedro Dias',     st:['done','done','late'],lbl:'Validação ⚠'},
+  {n:'16',nm:'Troca de Turno',       rp:'Piter Cristian', st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'17',nm:'Ativos CMG',           rp:'Regino Ferreiro',st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'18',nm:'Análise INA e PZ',     rp:'Piter Cristian', st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'19',nm:'ETRs',                 rp:'Vitor Leonel',   st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'20',nm:'Estações Meteo.',      rp:'Regino Ferreiro',st:['done','late','no'],  lbl:'Atrasado ⚠'},
+];
+const RESP = [
+  {nm:"Piter Cristian",   tot:9, done:6,atr:2,wip:1,no:0},
+  {nm:"A&M / GERDAU",     tot:13,done:7,atr:0,wip:1,no:5},
+  {nm:"Valter Lourenço",  tot:9, done:4,atr:2,wip:2,no:1},
+  {nm:"Vitor Leonel",     tot:9, done:4,atr:2,wip:1,no:2},
+  {nm:"Regino Ferreiro",  tot:9, done:3,atr:3,wip:1,no:2},
+  {nm:"Bruno Duarte",     tot:6, done:3,atr:1,wip:1,no:1},
+  {nm:"Euler Dias",       tot:6, done:3,atr:1,wip:1,no:1},
+  {nm:"Luciana Machado",  tot:6, done:3,atr:1,wip:1,no:1},
+  {nm:"Pedro Dias",       tot:6, done:3,atr:1,wip:1,no:1}
+];
+const SC={done:'#15803D',val:'#B8940A',wip:'#D97706',late:'#DC2626',no:'#E5E9F0'};
+let fF='Todas',fS='Todos',fR='Todos';
+let scChart=null,donut=null;
+
+const sClr=s=>({Concluído:'#15803D','Em andamento':'#D97706',Atrasado:'#DC2626','Não iniciado':'#9CA3AF',Marco:'#B8940A'}[s]||'#9CA3AF');
+const pCls=s=>({Concluído:'pc','Em andamento':'pa',Atrasado:'pr','Não iniciado':'pn',Marco:'pm'}[s]||'pn');
+
+// ── FILTER ────────────────────────────────────────────────────────────────
+function sf(type,val,btn){
+  if(type==='fase')fF=val;
+  else if(type==='status')fS=val;
+  else if(type==='resp'){fR=val;updateProfile();}
+  // update buttons
+  const grpMap={fase:0,status:1,resp:2};
+  document.querySelectorAll('.fbar .fbtn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else{
+    document.querySelectorAll('.fbar .fbtn').forEach(b=>{
+      const t=b.textContent.trim();
+      if(val==='Todas'&&t==='Todas')b.classList.add('active');
+      else if(val==='Todos'&&t==='Todos')b.classList.add('active');
+      else if(t===val||t.startsWith(val+' ·')||val.startsWith(t))b.classList.add('active');
+    });
+  }
+  buildCaps();buildResp();renderGantt();
+}
+function clearAll(){
+  fF='Todas';fS='Todos';fR='Todos';
+  document.querySelectorAll('.fbar .fbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.fbar .fbtn').forEach(b=>{if(['Todas','Todos'].includes(b.textContent.trim()))b.classList.add('active');});
+  document.getElementById('rpStrip').style.display='none';
+  buildCaps();buildResp();renderGantt();
+}
+function updateProfile(){
+  const strip=document.getElementById('rpStrip');
+  if(fR==='Todos'){strip.style.display='none';return;}
+  strip.style.display='block';
+  const rd=RESP.find(r=>r.nm===fR);
+  if(!rd)return;
+  document.getElementById('rpAv').textContent=fR.split(' ').map(w=>w[0]).slice(0,2).join('');
+  document.getElementById('rpNm').textContent=fR;
+  document.getElementById('rpSb').textContent=`${CAPS.filter(c=>c.rp===fR).length} capítulo(s) · ${rd.tot} atividades`;
+  document.getElementById('rpD').textContent=rd.done;
+  document.getElementById('rpW').textContent=rd.wip;
+  document.getElementById('rpA').textContent=rd.atr;
+  document.getElementById('rpN').textContent=rd.no;
+  document.getElementById('rpP').textContent=Math.round(rd.done/rd.tot*100)+'%';
+}
+
+// ── S-CURVE ───────────────────────────────────────────────────────────────
+function buildSC(){
+  const ctx=document.getElementById('sc').getContext('2d');
+  scChart=new Chart(ctx,{
+    type:'line',
+    data:{labels:SC_DATA.map(w=>w.label),datasets:[
+      {label:'Previsto',data:SC_DATA.map(w=>w.plan),borderColor:'#4E7FCC',backgroundColor:'rgba(78,127,204,.07)',borderWidth:2,pointRadius:2,fill:true,tension:0.35},
+      {label:'Realizado',data:SC_DATA.map(w=>w.real),borderColor:'#15803D',backgroundColor:'rgba(21,128,61,.07)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#15803D',fill:false,tension:0.3,spanGaps:false},
+      {label:'Projetado',data:SC_DATA.map((w,i)=>w.real!=null?null:w.plan),borderColor:'#B8940A',borderWidth:1.5,pointRadius:2,fill:false,tension:0.35,borderDash:[6,4],spanGaps:false},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(15,51,99,.95)',borderColor:'rgba(245,194,0,.3)',borderWidth:1,bodyColor:'#fff',titleColor:'rgba(255,255,255,.65)',padding:9,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y!=null?c.parsed.y.toFixed(1)+'%':'—'}`}}},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#6B7280',font:{size:9},maxRotation:40}},
+        y:{min:0,max:100,grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#6B7280',font:{size:9},callback:v=>v+'%'}},
+      }
+    }
+  });
+}
+
+// ── DONUT ─────────────────────────────────────────────────────────────────
+function buildDonut(){
+  const ctx=document.getElementById('donut').getContext('2d');
+  donut=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:['Concluído','Em andamento','Atrasado','Não iniciado'],datasets:[{data:[28,13,10,26],backgroundColor:['#15803D','#D97706','#DC2626','#E5E9F0'],borderColor:['#fff'],borderWidth:3,hoverOffset:5}]},
+    options:{responsive:false,maintainAspectRatio:false,cutout:'68%',
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(15,51,99,.95)',bodyColor:'#fff',callbacks:{label:c=>` ${c.label}: ${c.parsed}`}}}}
+  });
+}
+
+// ── CHAPTER TRACKER ───────────────────────────────────────────────────────
+function buildCaps(){
+  const grid=document.getElementById('capGrid');
+  const fl=fR==='Todos'?CAPS:CAPS.filter(c=>c.rp===fR);
+  if(!fl.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#9CA3AF;font-size:11px">Nenhum capítulo atribuído.</div>';return;}
+  grid.innerHTML=fl.map(c=>{
+    const ss=c.st.map(s=>`<div class="step" style="background:${SC[s]}"></div>`).join('');
+    const sClr2=c.lbl.includes('Concluído')?'#15803D':c.lbl.includes('⚠')?'#DC2626':c.lbl.includes('Validação')?'#B8940A':c.lbl.includes('andamento')?'#D97706':'#9CA3AF';
+    const sBg=c.lbl.includes('Concluído')?'#DCFCE7':c.lbl.includes('⚠')?'#FEE2E2':c.lbl.includes('Validação')?'#FFF8D6':c.lbl.includes('andamento')?'#FEF3C7':'#F7F9FC';
+    const isA=fR!=='Todos'&&fR===c.rp;
+    return `<div class="cap${isA?' hl':''}"><div class="cap-num">Cap. ${c.n}</div><div class="cap-name">${c.nm}</div><div class="cap-resp" style="color:${isA?'#0F3363':'#9CA3AF'}">${c.rp}</div><div class="cap-steps">${ss}</div><span class="pill" style="background:${sBg};color:${sClr2};font-size:8px">${c.lbl}</span></div>`;
+  }).join('');
+}
+
+// ── RESP TABLE ────────────────────────────────────────────────────────────
+function buildResp(){
+  const t=document.getElementById('rt');
+  t.innerHTML='<tr><th>Responsável</th><th style="text-align:center">Total</th><th style="text-align:center">Done</th><th style="text-align:center">%</th><th style="min-width:80px">Progresso</th></tr>'
+  +RESP.map(r=>{
+    const pct=Math.round(r.done/r.tot*100);
+    const bc=pct>=60?'#15803D':pct>=30?'#D97706':'#DC2626';
+    const isA=fR===r.nm;
+    const aB=r.atr>0?`<span class="pill pr" style="margin-left:4px;font-size:7px">${r.atr}⚠</span>`:'';
+    return `<tr class="${isA?'act':''}" onclick="sf('resp','${r.nm.replace(/'/g,"\'")}',null)"><td style="font-weight:${isA?700:600};color:${isA?'#0F3363':'#374151'}">${r.nm}${aB}${isA?'<span style="margin-left:6px;font-size:8px;color:#0F3363">▶</span>':''}</td><td style="text-align:center;color:#9CA3AF">${r.tot}</td><td style="text-align:center;color:#15803D;font-weight:700">${r.done}</td><td style="text-align:center;font-weight:800;color:${bc}">${pct}%</td><td><div class="rbar-bg"><div class="rbar-fill" style="width:${pct}%;background:${bc}"></div></div></td></tr>`;
+  }).join('');
+}
+
+// ── GANTT ─────────────────────────────────────────────────────────────────
+function renderGantt(){
+  const vis=GANTT.filter(t=>{
+    if(fF!=='Todas'&&t.fase!==fF&&t.fase!=='Projeto')return false;
+    if(fS!=='Todos'&&!t.is_marco&&t.status!==fS)return false;
+    if(fR!=='Todos'&&!t.is_marco&&!t.resp.includes(fR))return false;
+    return true;
+  });
+  const N=SC_DATA.length;
+  const TH='position:sticky;top:0;z-index:10;';
+  document.getElementById('gh').innerHTML='<tr>'
+    +`<th style="${TH}min-width:220px">Atividade</th>`
+    +`<th style="${TH}min-width:80px">Responsável</th>`
+    +`<th style="${TH}min-width:68px">Status</th>`
+    +SC_DATA.map((w,i)=>`<th class="wk" style="${TH}${w.label==='05/05'?'background:#0A2B5A;border-left:2px solid #DC2626;':''}">${w.label}</th>`).join('')
+    +'</tr>';
+  document.getElementById('gb').innerHTML=vis.map(t=>{
+    const ts=t.s?new Date(t.s):null,te=t.e?new Date(t.e):null;
+    const cr=t.is_marco?'mrc':t.nivel==='Nível 1'?'lv1':t.nivel==='Nível 2'?'lv2':'lv3';
+    const bc=sClr(t.is_marco?'Marco':t.status);
+    return `<tr class="${cr}"><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis" title="${t.task}">${t.task}</td><td style="font-size:9px;color:#9CA3AF;max-width:80px;overflow:hidden;text-overflow:ellipsis">${t.resp}</td><td><span class="pill ${pCls(t.is_marco?'Marco':t.status)}">${t.is_marco?'Marco':t.status}</span></td>`
+    +SC_DATA.map((w,wi)=>{const ws=new Date(w.date),we=wi<N-1?new Date(SC_DATA[wi+1].date):new Date('2026-08-07');const inR=ts&&te&&ws<te&&we>ts;const isT=w.label==='05/05';let inn='';if(t.is_marco&&ts&&ws<=te&&te<we)inn=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%) rotate(45deg);width:6px;height:6px;background:#B8940A;border-radius:1px;border:1px solid #8B6914"></div>`;else if(inR)inn=`<div style="position:absolute;top:3px;bottom:3px;left:1px;right:1px;border-radius:1px;background:${bc};opacity:.85"></div>`;return `<td class="wk" style="${isT?'border-left:2px solid rgba(220,38,38,.4)':''}">${inn}</td>`;}).join('')+'</tr>';
+  }).join('');
+}
+
+// ── EXPORT PDF ────────────────────────────────────────────────────────────
+function exportPDF(){
+  const btn=document.querySelector('.pdf-btn');
+  btn.textContent='Gerando PDF...';
+  btn.disabled=true;
+  setTimeout(()=>{
+    window.print();
+    btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M7 21H17a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/><path d="M14 3v5a1 1 0 001 1h5"/></svg> Exportar PDF`;
+    btn.disabled=false;
+  },300);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{buildSC();buildDonut();buildResp();buildCaps();renderGantt();});
+</script>
+</body></html>
