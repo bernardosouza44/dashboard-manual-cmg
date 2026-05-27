@@ -26,7 +26,7 @@ body{background:var(--bg);color:var(--gray1);font-family:'Barlow',sans-serif;fon
 /* ── HEADER ── */
 header{background:var(--navy);padding:0 28px;display:flex;align-items:stretch;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(15,51,99,.3)}
 .h-left{display:flex;align-items:center;gap:18px;padding:10px 0}
-.logo-box{background:#fff;border-radius:4px;padding:6px 14px;display:flex;align-items:center;border:1px solid #E5E9F0}
+.logo-box{background:#fff;border-radius:4px;padding:6px 13px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.3)}
 .logo-box img{height:24px;width:auto}
 .h-vl{width:1px;height:30px;background:rgba(255,255,255,.2)}
 .h-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:#fff}
@@ -98,21 +98,24 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:stretch;ju
 /* ── GRID LAYOUTS ── */
 .g2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:stretch}
+/* NEW: full-width fases + bottom row with status+resp side by side */
+.fases-full{width:100%}
+.fases-bottom-row{display:grid;grid-template-columns:1fr 2fr;gap:14px;align-items:stretch}
 .col{display:flex;flex-direction:column;gap:14px}
 
 /* ── PHASE CARDS ── */
-.fases-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:11px 14px}
-.fase{border-radius:5px;border:1px solid var(--border);padding:10px 12px;cursor:pointer;transition:all .15s;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.fases-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px 14px;align-items:start;flex:1;align-content:start}
+.fase{border-radius:5px;border:1px solid var(--border);padding:10px 12px;cursor:pointer;transition:all .15s;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden;align-self:start}
 .fase:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
 .fase-top-bar{height:4px;margin:-10px -12px 8px;width:calc(100% + 24px);position:relative;top:-10px;left:-12px}
 .fl-l{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:3px}
 .fn{font-size:10px;font-weight:600;color:var(--gray1);margin-bottom:1px;line-height:1.3}
 .fd2{font-size:8px;color:var(--gray3);margin-bottom:5px}
-.fp{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;line-height:1;margin-bottom:4px}
+.fp{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;line-height:1;margin-bottom:3px}
 .f-pbar{height:4px;background:var(--gray4);border-radius:2px;overflow:hidden;margin-top:4px}
 .f-pfill{height:100%;border-radius:2px;transition:width 1s}
-.fase-ghost{position:absolute;right:5px;bottom:3px;font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;opacity:.05;pointer-events:none}
+.fase-ghost{position:absolute;right:4px;bottom:2px;font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;opacity:.05;pointer-events:none}
 
 /* ── PILL ── */
 .pill{display:inline-block;padding:2px 8px;border-radius:2px;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
@@ -145,7 +148,7 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:stretch;ju
 .rbar-fill{height:100%;border-radius:2px;transition:width 1s}
 
 /* ── DONUT ── */
-.donut-wrap{display:flex;align-items:center;gap:18px;padding:12px 16px}
+.donut-wrap{display:flex;align-items:center;gap:18px;padding:12px 16px;flex:1}
 .dl-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .dl-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
 .dl-name{font-size:11px;color:var(--gray1);flex:1}
@@ -225,19 +228,19 @@ footer img{height:20px;filter:brightness(10)}
     <div class="h-vl"></div>
     <div>
       <div class="h-title">Manual de Operação do <span class="hl">CMG</span> — Dashboard de Projeto</div>
-      <div class="h-sub">Alvarez &amp; Marsal · Geotecnia · Rev.03 · Confidencial</div>
+      <div class="h-sub">Alvarez &amp; Marsal · Geotecnia · Rev.04 · Confidencial</div>
     </div>
   </div>
   <div class="h-right">
     <div class="h-info">
       <div class="il">Prazo final</div>
       <div class="iv">31/07/2026</div>
-      <div class="is">80 dias restantes</div>
+      <div class="is">65 dias restantes</div>
     </div>
     <div class="h-date">
       <div class="dl">Data de referência</div>
-      <div class="dv">12/05/2026</div>
-      <div class="ds">Semana 10 de 21</div>
+      <div class="dv">27/05/2026</div>
+      <div class="ds">Semana 13 de 21</div>
     </div>
     <button class="pdf-btn" onclick="exportPDF()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 21H17a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/><path d="M14 3v5a1 1 0 001 1h5"/></svg>
@@ -309,41 +312,41 @@ footer img{height:20px;filter:brightness(10)}
   <div class="kpi">
     <div class="kpi-bot" style="background:var(--navy)"></div>
     <div class="kpi-lbl">Avanço Previsto</div>
-    <div class="kpi-val" style="color:var(--navy)">54.6%</div>
-    <div class="kpi-sub">Semana 10 de 21</div>
-    <div class="kpi-bar"><div class="kpi-fill" style="width:42.1%;background:var(--navy)"></div></div>
+    <div class="kpi-val" style="color:var(--navy)">57,1%</div>
+    <div class="kpi-sub">Semana 13 de 21</div>
+    <div class="kpi-bar"><div class="kpi-fill" style="width:57.1%;background:var(--navy)"></div></div>
   </div>
   <div class="kpi">
     <div class="kpi-bot" style="background:var(--green3)"></div>
     <div class="kpi-lbl">Avanço Realizado</div>
-    <div class="kpi-val" style="color:var(--red3)">50.8%</div>
-    <div class="kpi-sub">⚠ -3.8pp vs previsto</div>
-    <div class="kpi-bar"><div class="kpi-fill" style="width:44.6%;background:var(--green3)"></div></div>
+    <div class="kpi-val" style="color:var(--red3)">53,8%</div>
+    <div class="kpi-sub">⚠ -3,3pp vs previsto</div>
+    <div class="kpi-bar"><div class="kpi-fill" style="width:53.8%;background:var(--red3)"></div></div>
   </div>
   <div class="kpi">
     <div class="kpi-bot" style="background:var(--green3)"></div>
     <div class="kpi-lbl">Tarefas Concluídas</div>
-    <div class="kpi-val" style="color:var(--green3)">36</div>
-    <div class="kpi-sub">de 77 atividades folha</div>
-    <div class="kpi-bar"><div class="kpi-fill" style="width:39%;background:var(--green3)"></div></div>
+    <div class="kpi-val" style="color:var(--green3)">41</div>
+    <div class="kpi-sub">de 125 atividades folha</div>
+    <div class="kpi-bar"><div class="kpi-fill" style="width:32.8%;background:var(--green3)"></div></div>
   </div>
   <div class="kpi">
     <div class="kpi-bot" style="background:var(--orange3)"></div>
     <div class="kpi-lbl">Em Andamento</div>
-    <div class="kpi-val" style="color:var(--orange3)">10</div>
+    <div class="kpi-val" style="color:var(--orange3)">30</div>
     <div class="kpi-sub">atividades em execução</div>
   </div>
   <div class="kpi">
     <div class="kpi-bot" style="background:var(--red3)"></div>
     <div class="kpi-lbl">Atrasadas</div>
-    <div class="kpi-val" style="color:var(--red3)">13</div>
+    <div class="kpi-val" style="color:var(--red3)">35</div>
     <div class="kpi-sub">requerem ação imediata</div>
   </div>
   <div class="kpi">
     <div class="kpi-bot" style="background:var(--purple)"></div>
     <div class="kpi-lbl">Em Validação</div>
-    <div class="kpi-val" style="color:var(--purple)">5</div>
-    <div class="kpi-sub">aguardando validação A&M</div>
+    <div class="kpi-val" style="color:var(--purple)">0</div>
+    <div class="kpi-sub">capítulos (Piter 3, Vitor 2)</div>
   </div>
 </div>
 
@@ -351,90 +354,91 @@ footer img{height:20px;filter:brightness(10)}
 <div style="background:var(--red2);border:1px solid var(--red3);border-left:4px solid var(--red3);border-radius:5px;padding:9px 15px;display:flex;gap:12px;align-items:center">
   <div style="font-size:16px;flex-shrink:0">🚨</div>
   <div>
-    <div style="font-size:11px;font-weight:700;color:var(--red)">13 atividades atrasadas · Fase C com gap de -7,5pp — atenção máxima</div>
-    <div style="font-size:10px;color:var(--red);margin-top:2px;opacity:.75">Regino (3) · Valter (2) · Vitor (2) · Piter (2) · Bruno, Euler, Luciana, Pedro (1 cada) · 4 caps aguardam validação A&M.</div>
+    <div style="font-size:11px;font-weight:700;color:var(--red)">11 validações em atraso · Redação Reports Diários incompleta — ação imediata necessária</div>
+    <div style="font-size:10px;color:var(--red);margin-top:2px;opacity:.75">Validações: Ntopus (Vitor) · PAE/PAEBM, Troca de Turno (Piter) · Talos (Bruno) · Reports, Ativos CMG (Regino) · Geocode (Euler) · Arq. Rede (Luciana) · SMAC (Valter) · Prog. Veículos, An. Vetorial (Pedro/Vitor) — Retomar checkpoints semanais imediatamente.</div>
   </div>
   <div style="margin-left:auto;flex-shrink:0"><span class="pill pr" style="font-size:9px;padding:4px 10px">Ação Urgente</span></div>
 </div>
 
 <!-- FASES + DONUT -->
-<div class="g21">
-  <div class="card">
-    <div class="card-h">
-      <div><div class="ct">Fases do Projeto</div><div class="cs">Previsto vs Realizado · Clique para filtrar</div></div>
+<!-- ROW 1: Fases full width -->
+<div class="card fases-full">
+  <div class="card-h">
+    <div><div class="ct">Fases do Projeto</div><div class="cs">Previsto vs Realizado · Clique para filtrar</div></div>
+  </div>
+  <div class="fases-wrap">
+    <div class="fase" onclick="sf('fase','A',null)">
+      <div class="fase-top-bar" style="background:var(--green3)"></div>
+      <div class="fl-l" style="color:var(--green3)">Fase A</div>
+      <div class="fn">Preliminares</div>
+      <div class="fd2">09/03 – 27/03/2026</div>
+      <div class="fp" style="color:var(--green3)">100%</div>
+      <div class="f-pbar"><div class="f-pfill" style="width:100%;background:var(--green3)"></div></div>
+      <div style="margin-top:4px"><span class="pill pc">Concluída ✓</span></div>
+      <div class="fase-ghost" style="color:var(--green3)">A</div>
     </div>
-    <div class="fases-wrap">
-      <div class="fase" onclick="sf('fase','A',null)">
-        <div class="fase-top-bar" style="background:var(--green3)"></div>
-        <div class="fl-l" style="color:var(--green3)">Fase A</div>
-        <div class="fn">Preliminares</div>
-        <div class="fd2">09/03 – 27/03/2026</div>
-        <div class="fp" style="color:var(--green3)">100%</div>
-        <div class="f-pbar"><div class="f-pfill" style="width:100%;background:var(--green3)"></div></div>
-        <div style="margin-top:5px"><span class="pill pc">Concluída ✓</span></div>
-        <div class="fase-ghost" style="color:var(--green3)">A</div>
-      </div>
-      <div class="fase" onclick="sf('fase','B',null)">
-        <div class="fase-top-bar" style="background:var(--orange3)"></div>
-        <div class="fl-l" style="color:var(--orange3)">Fase B</div>
-        <div class="fn">Módulos Introdutórios</div>
-        <div class="fd2">02/04 – 19/06/2026</div>
-        <div class="fp" style="color:var(--orange3)">87,5%</div>
-        <div class="f-pbar"><div class="f-pfill" style="width:87.5%;background:var(--orange3)"></div></div>
-        <div style="margin-top:5px"><span class="pill pa">Em andamento</span></div>
-        <div style="font-size:8px;color:var(--green3);font-weight:700;margin-top:3px">1 pendência restante</div>
-        <div class="fase-ghost" style="color:var(--orange3)">B</div>
-      </div>
-      <div class="fase" onclick="sf('fase','C',null)">
-        <div class="fase-top-bar" style="background:var(--navy)"></div>
-        <div class="fl-l" style="color:var(--navy)">Fase C</div>
-        <div class="fn">20 Capítulos CMG</div>
-        <div class="fd2">30/03 – 19/06/2026</div>
-        <div class="fp" style="color:var(--navy)">51,7%</div>
-        <div class="f-pbar"><div class="f-pfill" style="width:51.7%;background:var(--navy)"></div></div>
-        <div style="margin-top:5px"><span class="pill pa">Em andamento</span></div>
-        <div style="font-size:8px;color:var(--red3);font-weight:700;margin-top:3px">71,7%p / 64,2%r (-7,5pp ⚠)</div>
-        <div class="fase-ghost" style="color:var(--navy)">C</div>
-      </div>
-      <div class="fase" onclick="sf('fase','D',null)" style="opacity:.65">
-        <div class="fase-top-bar" style="background:var(--gold3)"></div>
-        <div class="fl-l" style="color:var(--gold3)">Fase D</div>
-        <div class="fn">Greendocs</div>
-        <div class="fd2">22/06 – 30/06/2026</div>
-        <div class="fp" style="color:var(--gold3)">0%</div>
-        <div class="f-pbar"><div class="f-pfill" style="width:0%;background:var(--gold3)"></div></div>
-        <div style="margin-top:5px"><span class="pill pn">Não iniciado</span></div>
-        <div class="fase-ghost" style="color:var(--gold3)">D</div>
-      </div>
-      <div class="fase" onclick="sf('fase','E',null)" style="opacity:.65">
-        <div class="fase-top-bar" style="background:var(--gray3)"></div>
-        <div class="fl-l" style="color:var(--gray3)">Fase E</div>
-        <div class="fn">Treinamento CMG</div>
-        <div class="fd2">01/07 – 31/07/2026</div>
-        <div class="fp" style="color:var(--gray3)">0%</div>
-        <div class="f-pbar"><div class="f-pfill" style="width:0%;background:var(--gray3)"></div></div>
-        <div style="margin-top:5px"><span class="pill pn">Não iniciado</span></div>
-        <div class="fase-ghost" style="color:var(--gray3)">E</div>
+    <div class="fase" onclick="sf('fase','B',null)">
+      <div class="fase-top-bar" style="background:var(--orange3)"></div>
+      <div class="fl-l" style="color:var(--orange3)">Fase B</div>
+      <div class="fn">Módulos Introdutórios</div>
+      <div class="fd2">02/04 – 19/06/2026</div>
+      <div class="fp" style="color:var(--orange3)">87,5%</div>
+      <div class="f-pbar"><div class="f-pfill" style="width:87.5%;background:var(--orange3)"></div></div>
+      <div style="margin-top:4px"><span class="pill pa">Em andamento</span></div>
+      <div style="font-size:8px;color:var(--green3);font-weight:700;margin-top:2px">1 pendência restante</div>
+      <div class="fase-ghost" style="color:var(--orange3)">B</div>
+    </div>
+    <div class="fase" onclick="sf('fase','C',null)">
+      <div class="fase-top-bar" style="background:var(--navy)"></div>
+      <div class="fl-l" style="color:var(--navy)">Fase C</div>
+      <div class="fn">20 Capítulos CMG</div>
+      <div class="fd2">30/03 – 19/06/2026</div>
+      <div class="fp" style="color:var(--navy)">70,0%</div>
+      <div class="f-pbar"><div class="f-pfill" style="width:70%;background:var(--navy)"></div></div>
+      <div style="margin-top:4px"><span class="pill pa">Em andamento</span></div>
+      <div style="font-size:8px;color:var(--red3);font-weight:700;margin-top:2px">76,7%p / 70,0%r (-6,7pp ⚠)</div>
+      <div class="fase-ghost" style="color:var(--navy)">C</div>
+    </div>
+    <div class="fase" onclick="sf('fase','D',null)" style="opacity:.65">
+      <div class="fase-top-bar" style="background:var(--gold3)"></div>
+      <div class="fl-l" style="color:var(--gold3)">Fase D</div>
+      <div class="fn">Greendocs</div>
+      <div class="fd2">22/06 – 30/06/2026</div>
+      <div class="fp" style="color:var(--gold3)">0%</div>
+      <div class="f-pbar"><div class="f-pfill" style="width:0%;background:var(--gold3)"></div></div>
+      <div style="margin-top:4px"><span class="pill pn">Não iniciado</span></div>
+      <div class="fase-ghost" style="color:var(--gold3)">D</div>
+    </div>
+    <div class="fase" onclick="sf('fase','E',null)" style="opacity:.65">
+      <div class="fase-top-bar" style="background:var(--gray3)"></div>
+      <div class="fl-l" style="color:var(--gray3)">Fase E</div>
+      <div class="fn">Treinamento CMG</div>
+      <div class="fd2">01/07 – 31/07/2026</div>
+      <div class="fp" style="color:var(--gray3)">0%</div>
+      <div class="f-pbar"><div class="f-pfill" style="width:0%;background:var(--gray3)"></div></div>
+      <div style="margin-top:4px"><span class="pill pn">Não iniciado</span></div>
+      <div class="fase-ghost" style="color:var(--gray3)">E</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2: Status (1fr) + Responsáveis (2fr) side by side -->
+<div class="fases-bottom-row">
+  <div class="card" style="display:flex;flex-direction:column">
+    <div class="card-h"><div><div class="ct">Status das Atividades</div><div class="cs" id="dSub">Distribuição — 125 atividades folha</div></div></div>
+    <div class="donut-wrap">
+      <canvas id="donut" width="120" height="120" style="flex-shrink:0"></canvas>
+      <div style="flex:1">
+        <div class="dl-row"><div class="dl-dot" style="background:var(--green3)"></div><div class="dl-name">Concluído</div><span class="dl-val" style="color:var(--green3)">41</span><span class="dl-tot">&nbsp;/ 125</span></div>
+        <div class="dl-row"><div class="dl-dot" style="background:var(--orange3)"></div><div class="dl-name">Em andamento</div><span class="dl-val" style="color:var(--orange3)">30</span><span class="dl-tot">&nbsp;/ 125</span></div>
+        <div class="dl-row"><div class="dl-dot" style="background:var(--red3)"></div><div class="dl-name">Atrasado</div><span class="dl-val" style="color:var(--red3)">35</span><span class="dl-tot">&nbsp;/ 125</span></div>
+        <div class="dl-row"><div class="dl-dot" style="background:var(--gray4)"></div><div class="dl-name">Não iniciado</div><span class="dl-val" style="color:var(--gray3)">19</span><span class="dl-tot">&nbsp;/ 125</span></div>
       </div>
     </div>
   </div>
-  <div class="col">
-    <div class="card">
-      <div class="card-h"><div><div class="ct">Status das Atividades</div><div class="cs" id="dSub">Distribuição — 77 atividades folha</div></div></div>
-      <div class="donut-wrap">
-        <canvas id="donut" width="130" height="130" style="flex-shrink:0"></canvas>
-        <div style="flex:1">
-          <div class="dl-row"><div class="dl-dot" style="background:var(--green3)"></div><div class="dl-name">Concluído</div><span class="dl-val" style="color:var(--green3)">36</span><span class="dl-tot">&nbsp;/ 77</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:var(--orange3)"></div><div class="dl-name">Em andamento</div><span class="dl-val" style="color:var(--orange3)">10</span><span class="dl-tot">&nbsp;/ 77</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:var(--red3)"></div><div class="dl-name">Atrasado</div><span class="dl-val" style="color:var(--red3)">13</span><span class="dl-tot">&nbsp;/ 77</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:var(--gray4)"></div><div class="dl-name">Não iniciado</div><span class="dl-val" style="color:var(--gray3)">18</span><span class="dl-tot">&nbsp;/ 77</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="card" style="flex:1">
-      <div class="card-h"><div><div class="ct">Progresso por Responsável</div><div class="cs">Clique na linha para filtrar</div></div></div>
-      <div style="overflow-x:auto"><table class="rt" id="rt"></table></div>
-    </div>
+  <div class="card">
+    <div class="card-h"><div><div class="ct">Progresso por Responsável</div><div class="cs">Clique na linha para filtrar</div></div></div>
+    <div style="overflow-x:auto"><table class="rt" id="rt"></table></div>
   </div>
 </div>
 
@@ -455,7 +459,7 @@ footer img{height:20px;filter:brightness(10)}
 
 <!-- MARCOS -->
 <div class="card">
-  <div class="card-h"><div><div class="ct">Marcos do Projeto</div><div class="cs">Status atual — Data-base 12/05/2026</div></div></div>
+  <div class="card-h"><div><div class="ct">Marcos do Projeto</div><div class="cs">Status atual — Data-base 27/05/2026</div></div></div>
   <div class="cb">
     <div class="marcos-grid">
       <div class="mc done-m"><div style="font-size:16px;margin-bottom:4px">✅</div><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:2px">EAP aprovada</div><div style="font-size:9px;color:var(--gray3);margin-bottom:4px">01/04/2026</div><span class="pill pc">Concluído</span></div>
@@ -479,7 +483,7 @@ footer img{height:20px;filter:brightness(10)}
       <div class="ld"><span class="ls" style="background:#4E7FCC"></span>Previsto</div>
       <div class="ld"><span class="ls" style="background:#15803D"></span>Realizado</div>
       <div class="ld"><span style="display:inline-block;width:14px;height:0;border-top:2px dashed #B8940A"></span>Projetado</div>
-      <div class="ld" style="color:#DC2626">▏Hoje 05/05</div>
+      <div class="ld" style="color:#DC2626">▏Hoje 26/05</div>
     </div>
   </div>
   <div class="cb" style="height:280px"><canvas id="sc"></canvas></div>
@@ -496,14 +500,14 @@ footer img{height:20px;filter:brightness(10)}
       <div class="ld"><span class="ls" style="background:#E5E9F0"></span>Planejado</div>
       <div class="ld"><span style="display:inline-block;width:7px;height:7px;background:#B8940A;transform:rotate(45deg);border-radius:1px;border:1px solid #8B6914"></span>Marco</div>
       <div class="fsep"></div>
-      <span style="font-size:9px;color:rgba(255,255,255,.6)">Hoje: <span style="color:#FF8080;font-weight:700">05/05</span></span>
+      <span style="font-size:9px;color:rgba(255,255,255,.6)">Hoje: <span style="color:#FF8080;font-weight:700">27/05</span></span>
     </div>
   </div>
-  <div class="gwrap"><table class="gt"><thead id="gh"></thead><tbody id="gb"></tbody></table></div>
+  <div class="gwrap" id="gwrapEl" style="overflow:hidden"><table class="gt"><thead id="gh"></thead><tbody id="gb"></tbody></table></div>
 </div>
 
 <!-- ═══ END: ANÁLISES ═══ -->
-<div class="section-head"><div class="sh-bar"></div><div class="sh-title">Análises e Conclusões</div><div class="sh-sub">PMO · A&amp;M · Data-base 12/05/2026</div></div>
+<div class="section-head"><div class="sh-bar"></div><div class="sh-title">Análises e Conclusões</div><div class="sh-sub">PMO · A&amp;M · Data-base 27/05/2026</div></div>
 
 <div class="card">
   <div class="ap-head">
@@ -516,13 +520,13 @@ footer img{height:20px;filter:brightness(10)}
   </div>
   <div class="ap-grid">
     <div class="ap-card">
-      <div class="ap-top"><div class="ap-ico">📈</div><div class="ap-t">Projeto à Frente — +0,8pp</div></div>
-      <div class="ap-tx">Avanço realizado (44,6%) supera o previsto (43,8%) na Semana 10. A Fase C está 5pp acima do previsto interno (51,7% vs 46,7%). O ritmo de entrega se mantém positivo, mas o número de capítulos Atrasados dobrou — exige atenção imediata.</div>
-      <span class="ap-tag" style="background:var(--green2);color:var(--green)">+0,8pp à frente</span>
+      <div class="ap-top"><div class="ap-ico">⚠️</div><div class="ap-t">Projeto Abaixo do Previsto — −3,3pp</div></div>
+      <div class="ap-tx">Avanço realizado (53,8%) fica 3,3pp abaixo do planejado (57,1%) na Semana 13. A Fase C acumula déficit de 6,7pp (76,7% previsto vs 70,0% realizado). Onze validações em atraso pressionam o cronograma de encerramento da fase em 19/06.</div>
+      <span class="ap-tag" style="background:var(--red2);color:var(--red)">−3,3pp abaixo</span>
     </div>
     <div class="ap-card">
       <div class="ap-top"><div class="ap-ico">🏆</div><div class="ap-t">Piter Cristian — Referência de Ritmo</div></div>
-      <div class="ap-tx">Piter lidera com 6/15 tarefas concluídas e 3 capítulos em validação simultânea (Troca de Turno, INA/PZ, PAE/PAEBM). PAE/PAEBM continua Atrasado na validação — bloqueio persiste há 2 semanas e precisa ser prioridade #1.</div>
+      <div class="ap-tx">Piter lidera com 67%+ de conclusão (6/9 tarefas), todos os 3 capítulos entregues para validação (PAE/PAEBM, Troca de Turno, INA/PZ). Dois capítulos em status Atrasado na validação — bloqueio está na A&M, não no técnico.</div>
       <span class="ap-tag" style="background:var(--green2);color:var(--green)">67% done</span>
     </div>
     <div class="ap-card">
@@ -531,27 +535,27 @@ footer img{height:20px;filter:brightness(10)}
       <span class="ap-tag" style="background:var(--orange2);color:var(--orange)">Monitorar — 1 pendência</span>
     </div>
     <div class="ap-card">
-      <div class="ap-top"><div class="ap-ico">⚡</div><div class="ap-t">7 Capítulos Atrasados — Risco Sistêmico</div></div>
-      <div class="ap-tx">Talos (Bruno), Reports/SMAC (Regino/Valter), Radares (Luciana), Prog. Veículos (Pedro), PAE/PAEBM (Piter), Software Geocode (Euler) — todos atrasados. Com Fase C encerrando em 19/06 (38 dias), o risco de cascata é real. Checkpoint urgente necessário.</div>
-      <span class="ap-tag" style="background:var(--red2);color:var(--red)">13 atrasos — crítico</span>
+      <div class="ap-top"><div class="ap-ico">⚡</div><div class="ap-t">4 Técnicos em Risco — Bruno, Euler, Luciana, Pedro</div></div>
+      <div class="ap-tx">Cada um com apenas 17% de conclusão (1 tarefa concluída). Com a Fase C encerrando em 19/06 (45 dias), cada técnico precisa entregar 5–6 tarefas. Sem aceleração imediata e checkpoints semanais, haverá atraso em cascata.</div>
+      <span class="ap-tag" style="background:var(--red2);color:var(--red)">Alto risco</span>
     </div>
     <div class="ap-card">
       <div class="ap-top"><div class="ap-ico">📅</div><div class="ap-t">Agendas Interrompidas — Risco Operacional</div></div>
-      <div class="ap-tx">Com 7 capítulos atrasados e 9 em andamento, a gestão de validações simultâneas exige cadência semanal. Os atrasos acumulados de Piter, Vitor, Valter e Regino não foram capturados a tempo. Checkpoint toda segunda-feira é mandatório.</div>
+      <div class="ap-tx">A pausa nos agendamentos é crítica com 10 tarefas em execução e validações ativas simultâneas. Os atrasos de Piter e Vitor na validação não foram capturados a tempo justamente pela ausência de checkpoint. Retomar imediatamente.</div>
       <span class="ap-tag" style="background:var(--orange2);color:var(--orange)">Retomar urgente</span>
     </div>
     <div class="ap-card">
-      <div class="ap-top"><div class="ap-ico">✅</div><div class="ap-t">Atenção: SMAC e Reports Regredidos</div></div>
-      <div class="ap-tx">SMAC (Valter) e Reports Diários (Regino) — que figuravam como Concluídos na semana anterior — retornaram ao status Atrasado. Isso indica que a validação ainda não foi formalizada. Confirmar com a equipe Gerdau o critério de conclusão adotado.</div>
-      <span class="ap-tag" style="background:var(--red2);color:var(--red)">Verificar urgente</span>
+      <div class="ap-top"><div class="ap-ico">🔄</div><div class="ap-t">Ground Probe Concluído — Validação em Andamento</div></div>
+      <div class="ap-tx">Ground Probe (Valter) teve redação concluída e entrou na etapa de validação — avanço positivo desta semana. SMAC e Reports Diários permanecem com validação em atraso (0% realizado). A&M deve priorizar revisão e devolução desses dois capítulos para desbloquear os técnicos.</div>
+      <span class="ap-tag" style="background:var(--orange2);color:var(--orange)">Validações pendentes</span>
     </div>
   </div>
   <div class="conc-label">Conclusões e Recomendações de Ação</div>
   <div class="conc-grid">
     <div class="conc"><div class="cn">1</div><div><div class="ct2">Retomar agendamentos esta semana</div><div class="ctx">Checkpoint semanal toda segunda-feira com todos os técnicos. Reunião quinzenal com gerência Gerdau. Sem cadência de reuniões, a fase de validação simultânea com 4 redações abertas é ingerenciável.</div></div></div>
-    <div class="conc"><div class="cn">2</div><div><div class="ct2">Resolver as 7 validações/redações atrasadas</div><div class="ctx">PAE/PAEBM (Piter), Plataforma Ntopus (Vitor), Software Geocode (Euler), Talos (Bruno), Reports (Regino), Prog. Veículos (Pedro) e SMAC (Valter) — todos com validação ou redação Atrasada. Designar revisor e prazo para cada um até sexta-feira.</div></div></div>
+    <div class="conc"><div class="cn">2</div><div><div class="ct2">Priorizar validações Piter e Vitor</div><div class="ctx">Ntopus, PAE/PAEBM e Troca de Turno estão em status Atrasado na validação. A&M deve revisar e devolver até sexta-feira para desbloquear os técnicos e liberar novos slots de entrega.</div></div></div>
     <div class="conc"><div class="cn">3</div><div><div class="ct2">Fechar Referências Normativas (Fase B)</div><div class="ctx">Única pendência da Fase B. A&M deve concluir em maio. Não impede o progresso da Fase C, mas é necessário para a integridade do manual na consolidação final de junho.</div></div></div>
-    <div class="conc"><div class="cn">4</div><div><div class="ct2">Plano de aceleração — Luciana prioritária</div><div class="ctx">Luciana Machado tem 3 tarefas Atrasadas e 0 em andamento — situação mais crítica. Bruno (SHMS em andamento mas Talos atrasado) e Pedro (Arq. Elétrica em andamento mas Prog. Veículos atrasado) precisam de split de atenção urgente.</div></div></div>
+    <div class="conc"><div class="cn">4</div><div><div class="ct2">Plano de aceleração para 4 técnicos</div><div class="ctx">Bruno, Euler, Luciana e Pedro precisam de datas intermediárias definidas (checkpoint a cada 7 dias) e um par revisor atribuído para cada capítulo. Definir na próxima reunião de acompanhamento.</div></div></div>
   </div>
 </div>
 
@@ -559,46 +563,46 @@ footer img{height:20px;filter:brightness(10)}
 
 <footer>
   <img src="data:image/png;base64,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" alt="Gerdau">
-  <div class="ft">Alvarez &amp; Marsal Infrastructure &amp; Capital Projects · Gerdau – Manual CMG · 12/05/2026 · Confidencial · v5.0</div>
+  <div class="ft">Alvarez &amp; Marsal Infrastructure &amp; Capital Projects · Gerdau – Manual CMG · 27/05/2026 · Confidencial · v5.5</div>
   <div class="fr">O FUTURO SE MOLDA<br><span style="font-size:8px;opacity:.5;font-weight:400">CMG 24/7</span></div>
 </footer>
 
 <script>
-const SC_DATA = [{"date": "2026-03-09", "label": "09/03", "plan": 0, "real": 0.0, "proj": null}, {"date": "2026-03-16", "label": "16/03", "plan": 2.6, "real": 5.1, "proj": null}, {"date": "2026-03-23", "label": "23/03", "plan": 3.9, "real": 10.2, "proj": null}, {"date": "2026-03-30", "label": "30/03", "plan": 5.2, "real": 15.2, "proj": null}, {"date": "2026-04-06", "label": "06/04", "plan": 18.2, "real": 20.3, "proj": null}, {"date": "2026-04-13", "label": "13/04", "plan": 19.5, "real": 25.4, "proj": null}, {"date": "2026-04-20", "label": "20/04", "plan": 24.7, "real": 30.5, "proj": null}, {"date": "2026-04-27", "label": "27/04", "plan": 29.9, "real": 35.6, "proj": null}, {"date": "2026-05-04", "label": "04/05", "plan": 35.1, "real": 40.6, "proj": null}, {"date": "2026-05-11", "label": "11/05", "plan": 44.2, "real": 45.7, "proj": null}, {"date": "2026-05-18", "label": "18/05", "plan": 55.8, "real": null, "proj": 55.8}, {"date": "2026-05-25", "label": "25/05", "plan": 62.3, "real": null, "proj": 62.3}, {"date": "2026-06-01", "label": "01/06", "plan": 64.9, "real": null, "proj": 64.9}, {"date": "2026-06-08", "label": "08/06", "plan": 66.2, "real": null, "proj": 66.2}, {"date": "2026-06-15", "label": "15/06", "plan": 72.7, "real": null, "proj": 72.7}, {"date": "2026-06-22", "label": "22/06", "plan": 88.3, "real": null, "proj": 88.3}, {"date": "2026-06-29", "label": "29/06", "plan": 89.6, "real": null, "proj": 89.6}, {"date": "2026-07-06", "label": "06/07", "plan": 92.2, "real": null, "proj": 92.2}, {"date": "2026-07-13", "label": "13/07", "plan": 93.5, "real": null, "proj": 93.5}, {"date": "2026-07-20", "label": "20/07", "plan": 94.8, "real": null, "proj": 94.8}, {"date": "2026-07-27", "label": "27/07", "plan": 94.8, "real": null, "proj": 94.8}];
-const GANTT = [{"nivel": "N\u00edvel 1", "eap": "1", "task": "Elabora\u00e7\u00e3o do Manual de Opera\u00e7\u00e3o do CMG", "fase": "Projeto", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-03-09", "e": "2026-07-31", "av_p": 0.5458, "av_r": 0.5083, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.1", "task": "Fase A \u2013 Atividades Preliminares", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-09", "e": "2026-03-27", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.1", "task": "Diagn\u00f3stico de Maturidade do CMG", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-09", "e": "2026-03-11", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.2", "task": "Elabora\u00e7\u00e3o da EAP do Manual CMG", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-11", "e": "2026-03-23", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.3", "task": "Distribui\u00e7\u00e3o dos respons\u00e1veis por cap\u00edtulo", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-11", "e": "2026-03-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.4", "task": "Defini\u00e7\u00e3o do Di\u00e1rio de Bordo", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-24", "e": "2026-03-27", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.2", "task": "Fase B \u2013 Elabora\u00e7\u00e3o dos M\u00f3dulos Introdut\u00f3rios", "fase": "B", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-04-02", "e": "2026-06-19", "av_p": 0.875, "av_r": 0.875, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.1", "task": "Elaborar m\u00f3dulo: Objetivos do Manual", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-02", "e": "2026-04-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.2", "task": "Elaborar m\u00f3dulo: Aplica\u00e7\u00e3o e Abrang\u00eancia", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-06", "e": "2026-04-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.3", "task": "Elaborar m\u00f3dulo: Refer\u00eancias Normativas", "fase": "B", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-04-08", "e": "2026-06-19", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.4", "task": "Elaborar m\u00f3dulo: Equipe T\u00e9cnica do CMG", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-10", "e": "2026-04-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.3", "task": "Fase C \u2013 Elabora\u00e7\u00e3o dos Cap\u00edtulos (Sistemas/Controles 1\u201320)", "fase": "C", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-03-30", "e": "2026-06-19", "av_p": 0.7167, "av_r": 0.6417, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.1", "task": "Entendimento inicial \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.1", "task": "Entendimento inicial \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-04-01", "e": "2026-04-20", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-04-22", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.1", "task": "Entendimento inicial \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-12", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Atrasado", "s": "2026-05-13", "e": "2026-05-15", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.1", "task": "Entendimento inicial \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.1", "task": "Entendimento inicial \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-04-30", "e": "2026-05-04", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Em andamento", "s": "2026-05-05", "e": "2026-05-26", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "N\u00e3o iniciado", "s": "2026-05-27", "e": "2026-05-29", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.1", "task": "Entendimento inicial \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-06-01", "e": "2026-06-02", "av_p": 0.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-06-03", "e": "2026-06-15", "av_p": 0.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Em andamento", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.1", "task": "Entendimento inicial \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.1", "task": "Entendimento inicial \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-22", "e": "2026-04-23", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-24", "e": "2026-05-08", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Atrasado", "s": "2026-05-11", "e": "2026-05-13", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.1", "task": "Entendimento inicial \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-04-27", "e": "2026-04-28", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-04-29", "e": "2026-05-18", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-05-19", "e": "2026-05-21", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.1", "task": "Entendimento inicial \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-05-14", "e": "2026-05-15", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-05-18", "e": "2026-06-15", "av_p": 0.5, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Em andamento", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.1", "task": "Entendimento inicial \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "Em andamento", "s": "2026-05-22", "e": "2026-05-25", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "N\u00e3o iniciado", "s": "2026-05-26", "e": "2026-06-12", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "N\u00e3o iniciado", "s": "2026-06-15", "e": "2026-06-17", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.1", "task": "Entendimento inicial \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.1", "task": "Entendimento inicial \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "Em andamento", "s": "2026-05-22", "e": "2026-05-25", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-05-26", "e": "2026-06-12", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-06-15", "e": "2026-06-17", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.1", "task": "Entendimento inicial \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-04-20", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Atrasado", "s": "2026-04-22", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.1", "task": "Entendimento inicial \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-04-15", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Atrasado", "s": "2026-04-16", "e": "2026-04-20", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.1", "task": "Entendimento inicial \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-27", "e": "2026-04-28", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-29", "e": "2026-05-18", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Atrasado", "s": "2026-05-19", "e": "2026-05-21", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.1", "task": "Entendimento inicial \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-05-18", "e": "2026-05-19", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "Em andamento", "s": "2026-05-20", "e": "2026-06-15", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "N\u00e3o iniciado", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.1", "task": "Entendimento inicial \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Atrasado", "s": "2026-04-01", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Atrasado", "s": "2026-04-27", "e": "2026-04-29", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.1", "task": "Entendimento inicial \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.1", "task": "Entendimento inicial \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.4", "task": "Fase D \u2013 Greendocs", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-22", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.1", "task": "Validar manual consolidado (revis\u00e3o final integrada)", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-22", "e": "2026-06-26", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.3", "task": "Cadastrar material no Greendocs Gerdau", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-27", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.4", "task": "Divulgar material para a Ger\u00eancia", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-30", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.5", "task": "Fase E \u2013 Treinamento da Equipe do CMG", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-01", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.1", "task": "Elaborar material do treinamento", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-01", "e": "2026-07-10", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.2", "task": "Elaborar cronograma dos treinamentos", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-13", "e": "2026-07-14", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.3", "task": "Treinamento \u2013 Turno A Dupla 1 ", "fase": "E", "resp": "Vitor Leonel / Valter Louren\u00e7o", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.4", "task": "Treinamento \u2013 Turno B Dupla 2", "fase": "E", "resp": "Bruno Duarte / Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.5", "task": "Treinamento \u2013 Turno C Dupla 3", "fase": "E", "resp": "Luciana Machado / Piter Cristian", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.6", "task": "Treinamento \u2013 Turno D Dupla 4", "fase": "E", "resp": "Euler Dias / Pedro Dias", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}];
+const SC_DATA = [{"date": "2026-03-09", "label": "09/03", "plan": 0.0, "real": 0.0, "proj": null}, {"date": "2026-03-23", "label": "23/03", "plan": 7.5, "real": 8.1, "proj": null}, {"date": "2026-03-30", "label": "30/03", "plan": 10.0, "real": 10.8, "proj": null}, {"date": "2026-04-06", "label": "06/04", "plan": 19.07, "real": 20.6, "proj": null}, {"date": "2026-04-13", "label": "13/04", "plan": 23.78, "real": 25.7, "proj": null}, {"date": "2026-04-20", "label": "20/04", "plan": 30.82, "real": 33.3, "proj": null}, {"date": "2026-04-27", "label": "27/04", "plan": 32.53, "real": 35.2, "proj": null}, {"date": "2026-05-04", "label": "04/05", "plan": 38.57, "real": 41.7, "proj": null}, {"date": "2026-05-11", "label": "11/05", "plan": 41.85, "real": 45.3, "proj": null}, {"date": "2026-05-18", "label": "18/05", "plan": 47.92, "real": 51.8, "proj": null}, {"date": "2026-05-27", "label": "27/05", "plan": 57.08, "real": 53.75, "proj": null}, {"date": "2026-06-01", "label": "01/06", "plan": 59.81, "real": null, "proj": 59.81}, {"date": "2026-06-08", "label": "08/06", "plan": 62.24, "real": null, "proj": 62.24}, {"date": "2026-06-15", "label": "15/06", "plan": 63.91, "real": null, "proj": 63.91}, {"date": "2026-06-22", "label": "22/06", "plan": 67.5, "real": null, "proj": 67.5}, {"date": "2026-06-29", "label": "29/06", "plan": 75.0, "real": null, "proj": 75.0}, {"date": "2026-07-06", "label": "06/07", "plan": 81.5, "real": null, "proj": 81.5}, {"date": "2026-07-13", "label": "13/07", "plan": 86.0, "real": null, "proj": 86.0}, {"date": "2026-07-20", "label": "20/07", "plan": 93.0, "real": null, "proj": 93.0}, {"date": "2026-07-31", "label": "31/07", "plan": 100.0, "real": null, "proj": 100.0}];
+const GANTT = [{"nivel": "N\u00edvel 1", "eap": "1", "task": "Elabora\u00e7\u00e3o do Manual de Opera\u00e7\u00e3o do CMG", "fase": "Projeto", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-03-09", "e": "2026-07-31", "av_p": 0.5708, "av_r": 0.5375, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.1", "task": "Fase A \u2013 Atividades Preliminares", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-09", "e": "2026-03-27", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.1", "task": "Diagn\u00f3stico de Maturidade do CMG", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-09", "e": "2026-03-11", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.2", "task": "Elabora\u00e7\u00e3o da EAP do Manual CMG", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-11", "e": "2026-03-23", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.3", "task": "Distribui\u00e7\u00e3o dos respons\u00e1veis por cap\u00edtulo", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-11", "e": "2026-03-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.1.1.1.4", "task": "Defini\u00e7\u00e3o do Di\u00e1rio de Bordo", "fase": "A", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-03-24", "e": "2026-03-27", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.2", "task": "Fase B \u2013 Elabora\u00e7\u00e3o dos M\u00f3dulos Introdut\u00f3rios", "fase": "B", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-04-02", "e": "2026-06-19", "av_p": 0.875, "av_r": 0.875, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.1", "task": "Elaborar m\u00f3dulo: Objetivos do Manual", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-02", "e": "2026-04-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.2", "task": "Elaborar m\u00f3dulo: Aplica\u00e7\u00e3o e Abrang\u00eancia", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-06", "e": "2026-04-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.3", "task": "Elaborar m\u00f3dulo: Refer\u00eancias Normativas", "fase": "B", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-04-08", "e": "2026-06-19", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.2.1.1.4", "task": "Elaborar m\u00f3dulo: Equipe T\u00e9cnica do CMG", "fase": "B", "resp": "A&M / GERDAU", "status": "Conclu\u00eddo", "s": "2026-04-10", "e": "2026-04-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.3", "task": "Fase C \u2013 Elabora\u00e7\u00e3o dos Cap\u00edtulos (Sistemas/Controles 1\u201320)", "fase": "C", "resp": "A&M / GERDAU", "status": "Em andamento", "s": "2026-03-30", "e": "2026-06-19", "av_p": 0.7667, "av_r": 0.7000, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.1", "task": "Entendimento inicial \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.1.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Talos (sirenes)", "fase": "C", "resp": "Bruno Duarte", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.1", "task": "Entendimento inicial \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-04-01", "e": "2026-04-20", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.10.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Reports Di\u00e1rios", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-04-22", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.1", "task": "Entendimento inicial \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-12", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.11.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura de Rede", "fase": "C", "resp": "Luciana Machado", "status": "Atrasado", "s": "2026-05-13", "e": "2026-05-15", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.1", "task": "Entendimento inicial \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.12.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Programa\u00e7\u00e3o de Ve\u00edculos", "fase": "C", "resp": "Pedro Dias", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.1", "task": "Entendimento inicial \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-04-30", "e": "2026-05-04", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-05-05", "e": "2026-05-26", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.13.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Ground Probe", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Em andamento", "s": "2026-05-27", "e": "2026-05-29", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.1", "task": "Entendimento inicial \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-06-01", "e": "2026-06-02", "av_p": 0.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-06-03", "e": "2026-06-15", "av_p": 0.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.14.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 C\u00e2meras CFTV", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Em andamento", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.1", "task": "Entendimento inicial \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.15.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Arquitetura El\u00e9trica", "fase": "C", "resp": "Pedro Dias", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.1", "task": "Entendimento inicial \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-22", "e": "2026-04-23", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-24", "e": "2026-05-08", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.16.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Troca de Turno", "fase": "C", "resp": "Piter Cristian", "status": "Atrasado", "s": "2026-05-11", "e": "2026-05-13", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.1", "task": "Entendimento inicial \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-04-27", "e": "2026-04-28", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-04-29", "e": "2026-05-18", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.17.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Ativos CMG", "fase": "C", "resp": "Regino Ferreiro", "status": "Atrasado", "s": "2026-05-19", "e": "2026-05-21", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.1", "task": "Entendimento inicial \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-05-14", "e": "2026-05-15", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-05-18", "e": "2026-06-15", "av_p": 0.5, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.18.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise INA e PZ", "fase": "C", "resp": "Piter Cristian", "status": "Em andamento", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.1", "task": "Entendimento inicial \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-05-22", "e": "2026-05-25", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "Em andamento", "s": "2026-05-26", "e": "2026-06-12", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.19.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 ETRs", "fase": "C", "resp": "Vitor Leonel", "status": "N\u00e3o iniciado", "s": "2026-06-15", "e": "2026-06-17", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.1", "task": "Entendimento inicial \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.2.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Geoinspector", "fase": "C", "resp": "Euler Dias", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.1", "task": "Entendimento inicial \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "Conclu\u00eddo", "s": "2026-05-22", "e": "2026-05-25", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "Em andamento", "s": "2026-05-26", "e": "2026-06-12", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.20.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Esta\u00e7\u00f5es Meteorol\u00f3gicas", "fase": "C", "resp": "Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-06-15", "e": "2026-06-17", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.1", "task": "Entendimento inicial \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-04-20", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.3.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Plataforma Ntopus", "fase": "C", "resp": "Vitor Leonel", "status": "Atrasado", "s": "2026-04-22", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.1", "task": "Entendimento inicial \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-04-15", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.4.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 PAE/PAEBM", "fase": "C", "resp": "Piter Cristian", "status": "Atrasado", "s": "2026-04-16", "e": "2026-04-20", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.1", "task": "Entendimento inicial \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-27", "e": "2026-04-28", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Conclu\u00eddo", "s": "2026-04-29", "e": "2026-05-18", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.5.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 An\u00e1lise Vetorial", "fase": "C", "resp": "Vitor Leonel", "status": "Atrasado", "s": "2026-05-19", "e": "2026-05-21", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.1", "task": "Entendimento inicial \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "Conclu\u00eddo", "s": "2026-05-18", "e": "2026-05-19", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "Em andamento", "s": "2026-05-20", "e": "2026-06-15", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.6.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Radares (An\u00e1lises)", "fase": "C", "resp": "Luciana Machado", "status": "N\u00e3o iniciado", "s": "2026-06-16", "e": "2026-06-18", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.1", "task": "Entendimento inicial \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Atrasado", "s": "2026-04-01", "e": "2026-04-24", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.7.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 SMAC", "fase": "C", "resp": "Valter Louren\u00e7o", "status": "Atrasado", "s": "2026-04-27", "e": "2026-04-29", "av_p": 1.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.1", "task": "Entendimento inicial \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-03-30", "e": "2026-03-31", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Conclu\u00eddo", "s": "2026-04-01", "e": "2026-05-06", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.8.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 Software Geocode", "fase": "C", "resp": "Euler Dias", "status": "Atrasado", "s": "2026-05-07", "e": "2026-05-11", "av_p": 1.0, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.1", "task": "Entendimento inicial \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "Conclu\u00eddo", "s": "2026-05-12", "e": "2026-05-13", "av_p": 1.0, "av_r": 1.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.2", "task": "Reda\u00e7\u00e3o do cap\u00edtulo \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "Em andamento", "s": "2026-05-14", "e": "2026-06-16", "av_p": 0.5, "av_r": 0.5, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.3.9.1.3", "task": "Valida\u00e7\u00e3o do cap\u00edtulo \u2013 SHMS", "fase": "C", "resp": "Bruno Duarte", "status": "N\u00e3o iniciado", "s": "2026-06-17", "e": "2026-06-19", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.4", "task": "Fase D \u2013 Greendocs", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-22", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.1", "task": "Validar manual consolidado (revis\u00e3o final integrada)", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-22", "e": "2026-06-26", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.3", "task": "Cadastrar material no Greendocs Gerdau", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-27", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.4.1.1.4", "task": "Divulgar material para a Ger\u00eancia", "fase": "D", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-06-30", "e": "2026-06-30", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 2", "eap": "1.5", "task": "Fase E \u2013 Treinamento da Equipe do CMG", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-01", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.1", "task": "Elaborar material do treinamento", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-01", "e": "2026-07-10", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.2", "task": "Elaborar cronograma dos treinamentos", "fase": "E", "resp": "A&M / GERDAU", "status": "N\u00e3o iniciado", "s": "2026-07-13", "e": "2026-07-14", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.3", "task": "Treinamento \u2013 Turno A Dupla 1 ", "fase": "E", "resp": "Vitor Leonel / Valter Louren\u00e7o", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.4", "task": "Treinamento \u2013 Turno B Dupla 2", "fase": "E", "resp": "Bruno Duarte / Regino Ferreiro", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.5", "task": "Treinamento \u2013 Turno C Dupla 3", "fase": "E", "resp": "Luciana Machado / Piter Cristian", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}, {"nivel": "N\u00edvel 5", "eap": "1.5.1.1.6", "task": "Treinamento \u2013 Turno D Dupla 4", "fase": "E", "resp": "Euler Dias / Pedro Dias", "status": "N\u00e3o iniciado", "s": "2026-07-14", "e": "2026-07-31", "av_p": 0.0, "av_r": 0.0, "is_marco": false}];
 
 const CAPS = [
-  {n:'01',nm:'Talos (Sirenes)',      rp:'Bruno Duarte',   st:['done','done','val'], lbl:'Validação'},
-  {n:'02',nm:'Geoinspector',         rp:'Euler Dias',     st:['done','done','val'], lbl:'Validação'},
-  {n:'03',nm:'Plataforma Ntopus',    rp:'Vitor Leonel',   st:['done','done','late'],lbl:'Validação ⚠'},
-  {n:'04',nm:'PAE/PAEBM',            rp:'Piter Cristian', st:['done','done','done'],lbl:'Concluído ✓'},
-  {n:'05',nm:'Análise Vetorial',     rp:'Vitor Leonel',   st:['done','done','late'],lbl:'Validação ⚠'},
-  {n:'06',nm:'Radares',              rp:'Luciana Machado',st:['done','done','val'], lbl:'Validação'},
-  {n:'07',nm:'SMAC',                 rp:'Valter Lourenço',st:['done','done','done'],lbl:'Concluído ✓'},
-  {n:'08',nm:'Software Geocode',     rp:'Euler Dias',     st:['done','done','late'],lbl:'Validação ⚠'},
-  {n:'09',nm:'SHMS',                 rp:'Bruno Duarte',   st:['done','wip','no'],   lbl:'Em andamento'},
-  {n:'10',nm:'Reports Diários',      rp:'Regino Ferreiro',st:['done','done','done'],lbl:'Concluído ✓'},
-  {n:'11',nm:'Arq. de Rede',         rp:'Luciana Machado',st:['done','done','late'],lbl:'Validação ⚠'},
-  {n:'12',nm:'Prog. Veículos',       rp:'Pedro Dias',     st:['done','done','val'], lbl:'Validação'},
-  {n:'13',nm:'Ground Probe',         rp:'Valter Lourenço',st:['done','done','done'],lbl:'Concluído ✓'},
-  {n:'14',nm:'Câmeras CFTV',         rp:'Valter Lourenço',st:['done','wip','no'],   lbl:'Em andamento'},
-  {n:'15',nm:'Arq. Elétrica',        rp:'Pedro Dias',     st:['done','done','late'],lbl:'Validação ⚠'},
-  {n:'16',nm:'Troca de Turno',       rp:'Piter Cristian', st:['done','done','done'],lbl:'Concluído ✓'},
-  {n:'17',nm:'Ativos CMG',           rp:'Regino Ferreiro',st:['done','wip','no'],   lbl:'Em andamento'},
-  {n:'18',nm:'Análise INA e PZ',     rp:'Piter Cristian', st:['done','done','done'],lbl:'Concluído ✓'},
+  {n:'01',nm:'SHMS',                 rp:'Bruno Duarte',   st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'02',nm:'Geoinspector',         rp:'Euler Dias',     st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'03',nm:'Plataforma Ntopus',    rp:'Vitor Leonel',   st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'04',nm:'PAE/PAEBM',            rp:'Piter Cristian', st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'05',nm:'Análise Vetorial',     rp:'Vitor Leonel',   st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'06',nm:'Radares (Análises)',   rp:'Luciana Machado',st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'07',nm:'SMAC',                 rp:'Valter Lourenço',st:['done','late','late'], lbl:'Atrasado ⚠'},
+  {n:'08',nm:'Software Geocode',     rp:'Euler Dias',     st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'09',nm:'Talos (Sirenes)',      rp:'Bruno Duarte',   st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'10',nm:'Reports Diários',      rp:'Regino Ferreiro',st:['done','late','late'], lbl:'Atrasado ⚠'},
+  {n:'11',nm:'Arq. de Rede',         rp:'Luciana Machado',st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'12',nm:'Prog. Veículos',       rp:'Pedro Dias',     st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'13',nm:'Ground Probe',         rp:'Valter Lourenço',st:['done','done','wip'], lbl:'Em andamento'},
+  {n:'14',nm:'Câmeras CFTV',         rp:'Valter Lourenço',st:['done','done','wip'], lbl:'Em andamento'},
+  {n:'15',nm:'Arq. Elétrica',        rp:'Pedro Dias',     st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'16',nm:'Troca de Turno',       rp:'Piter Cristian', st:['done','done','late'],lbl:'Atrasado ⚠'},
+  {n:'17',nm:'Est. Meteorológicas',  rp:'Regino Ferreiro',st:['done','wip','no'],   lbl:'Em andamento'},
+  {n:'18',nm:'Análise INA e PZ',     rp:'Piter Cristian', st:['done','done','wip'], lbl:'Em andamento'},
   {n:'19',nm:'ETRs',                 rp:'Vitor Leonel',   st:['done','wip','no'],   lbl:'Em andamento'},
-  {n:'20',nm:'Estações Meteo.',      rp:'Regino Ferreiro',st:['done','late','no'],  lbl:'Atrasado ⚠'},
+  {n:'20',nm:'Ativos CMG',           rp:'Regino Ferreiro',st:['done','done','late'],lbl:'Atrasado ⚠'},
 ];
 const RESP = [
-  {nm:"Piter Cristian",   tot:9, done:6,atr:2,wip:1,no:0},
-  {nm:"A&M / GERDAU",     tot:13,done:7,atr:0,wip:1,no:5},
-  {nm:"Valter Lourenço",  tot:9, done:4,atr:2,wip:2,no:1},
-  {nm:"Vitor Leonel",     tot:9, done:4,atr:2,wip:1,no:2},
-  {nm:"Regino Ferreiro",  tot:9, done:3,atr:3,wip:1,no:2},
-  {nm:"Bruno Duarte",     tot:6, done:3,atr:1,wip:1,no:1},
-  {nm:"Euler Dias",       tot:6, done:3,atr:1,wip:1,no:1},
-  {nm:"Luciana Machado",  tot:6, done:3,atr:1,wip:1,no:1},
-  {nm:"Pedro Dias",       tot:6, done:3,atr:1,wip:1,no:1}
+  {nm:"Piter Cristian",   tot:15,done:6,atr:6,wip:3,no:0},
+  {nm:"A&M / GERDAU",     tot:21,done:9,atr:0,wip:3,no:9},
+  {nm:"Valter Lourenço",  tot:15,done:5,atr:4,wip:6,no:0},
+  {nm:"Vitor Leonel",     tot:15,done:5,atr:6,wip:3,no:1},
+  {nm:"Regino Ferreiro",  tot:15,done:4,atr:7,wip:3,no:1},
+  {nm:"Bruno Duarte",     tot:10,done:3,atr:3,wip:3,no:1},
+  {nm:"Euler Dias",       tot:10,done:3,atr:3,wip:3,no:1},
+  {nm:"Luciana Machado",  tot:10,done:3,atr:3,wip:3,no:1},
+  {nm:"Pedro Dias",       tot:10,done:3,atr:3,wip:3,no:1},
 ];
 const SC={done:'#15803D',val:'#B8940A',wip:'#D97706',late:'#DC2626',no:'#E5E9F0'};
 let fF='Todas',fS='Todos',fR='Todos';
@@ -676,7 +680,7 @@ function buildDonut(){
   const ctx=document.getElementById('donut').getContext('2d');
   donut=new Chart(ctx,{
     type:'doughnut',
-    data:{labels:['Concluído','Em andamento','Atrasado','Não iniciado'],datasets:[{data:[28,13,10,26],backgroundColor:['#15803D','#D97706','#DC2626','#E5E9F0'],borderColor:['#fff'],borderWidth:3,hoverOffset:5}]},
+    data:{labels:['Concluído','Em andamento','Atrasado','Não iniciado'],datasets:[{data:[41,30,35,19],backgroundColor:['#15803D','#D97706','#DC2626','#E5E9F0'],borderColor:['#fff'],borderWidth:3,hoverOffset:5}]},
     options:{responsive:false,maintainAspectRatio:false,cutout:'68%',
       plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(15,51,99,.95)',bodyColor:'#fff',callbacks:{label:c=>` ${c.label}: ${c.parsed}`}}}}
   });
@@ -723,14 +727,15 @@ function renderGantt(){
     +`<th style="${TH}min-width:220px">Atividade</th>`
     +`<th style="${TH}min-width:80px">Responsável</th>`
     +`<th style="${TH}min-width:68px">Status</th>`
-    +SC_DATA.map((w,i)=>`<th class="wk" style="${TH}${w.label==='05/05'?'background:#0A2B5A;border-left:2px solid #DC2626;':''}">${w.label}</th>`).join('')
+    +SC_DATA.map((w,i)=>`<th class="wk" style="${TH}${w.label==='27/05'?'background:#0A2B5A;border-left:2px solid #DC2626;':''}">${w.label}</th>`).join('')
     +'</tr>';
+  const _gw=document.getElementById('gwrapEl');if(_gw)_gw.style.overflow='auto';
   document.getElementById('gb').innerHTML=vis.map(t=>{
     const ts=t.s?new Date(t.s):null,te=t.e?new Date(t.e):null;
     const cr=t.is_marco?'mrc':t.nivel==='Nível 1'?'lv1':t.nivel==='Nível 2'?'lv2':'lv3';
     const bc=sClr(t.is_marco?'Marco':t.status);
     return `<tr class="${cr}"><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis" title="${t.task}">${t.task}</td><td style="font-size:9px;color:#9CA3AF;max-width:80px;overflow:hidden;text-overflow:ellipsis">${t.resp}</td><td><span class="pill ${pCls(t.is_marco?'Marco':t.status)}">${t.is_marco?'Marco':t.status}</span></td>`
-    +SC_DATA.map((w,wi)=>{const ws=new Date(w.date),we=wi<N-1?new Date(SC_DATA[wi+1].date):new Date('2026-08-07');const inR=ts&&te&&ws<te&&we>ts;const isT=w.label==='05/05';let inn='';if(t.is_marco&&ts&&ws<=te&&te<we)inn=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%) rotate(45deg);width:6px;height:6px;background:#B8940A;border-radius:1px;border:1px solid #8B6914"></div>`;else if(inR)inn=`<div style="position:absolute;top:3px;bottom:3px;left:1px;right:1px;border-radius:1px;background:${bc};opacity:.85"></div>`;return `<td class="wk" style="${isT?'border-left:2px solid rgba(220,38,38,.4)':''}">${inn}</td>`;}).join('')+'</tr>';
+    +SC_DATA.map((w,wi)=>{const ws=new Date(w.date),we=wi<N-1?new Date(SC_DATA[wi+1].date):new Date('2026-08-07');const inR=ts&&te&&ws<te&&we>ts;const isT=w.label==='27/05';let inn='';if(t.is_marco&&ts&&ws<=te&&te<we)inn=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%) rotate(45deg);width:6px;height:6px;background:#B8940A;border-radius:1px;border:1px solid #8B6914"></div>`;else if(inR)inn=`<div style="position:absolute;top:3px;bottom:3px;left:1px;right:1px;border-radius:1px;background:${bc};opacity:.85"></div>`;return `<td class="wk" style="${isT?'border-left:2px solid rgba(220,38,38,.4)':''}">${inn}</td>`;}).join('')+'</tr>';
   }).join('');
 }
 
