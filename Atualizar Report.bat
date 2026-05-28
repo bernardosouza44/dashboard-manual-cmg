@@ -1,13 +1,13 @@
 @echo off
 
-cd /d "C:\Users\b.souza\OneDrive - Alvarez and Marsal\Documents\Alvarez & Marsal\GERDAU\Manual_CMG\Report_GitHub"
+cd /d "C:\Users\b.souza\Alvarez and Marsal\[GERDAU] Implantação de PMO - Reports GERDAU\Geotecnia de Inspeção\Report_ManualCMG"
 
 echo =====================================
 echo Atualizando Dashboard CMG...
 echo =====================================
 
 echo Sincronizando com GitHub...
-git pull origin main
+git pull origin main --rebase
 
 echo Enviando atualizacoes...
 git add .
