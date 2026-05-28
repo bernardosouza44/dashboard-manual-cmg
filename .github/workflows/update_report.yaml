@@ -6,39 +6,40 @@ permissions:
 on:
   push:
     paths:
-      - "ManualCMG.xlsx"   # dispara SOMENTE quando a planilha for atualizada
-      - "template.html"    # ou quando o template mudar
+      - "ManualCMG.xlsx"
+      - "template.html"
+      - "generate_report.py"
 
-  workflow_dispatch:       # permite rodar manualmente pelo GitHub
+  workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Baixa o conteúdo do repositório
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
-      # 2. Instala Python 3.11
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # 3. Instala as bibliotecas
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      # 4. Roda o script Python que gera o index.html
       - name: Gerar index.html
         run: python generate_report.py
 
-      # 5. Faz commit e push do HTML gerado de volta ao repositório
       - name: Commit e push do relatório
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add index.html
-          git diff --cached --quiet || git commit -m "🤖 Auto: atualiza dashboard $(date +'%d/%m/%Y %H:%M')"
-          git push
+
+          git diff --cached --quiet || git commit -m "Auto: atualiza dashboard"
+
+          git push origin main
