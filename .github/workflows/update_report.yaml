@@ -1,4 +1,4 @@
-name: Atualizar Dashboard CMG
+name: Atualizar Report CMG
 
 permissions:
   contents: write
